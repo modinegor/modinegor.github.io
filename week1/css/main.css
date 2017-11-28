@@ -1,5 +1,6 @@
 body {
     background-color: #e6ecf0;
+    margin-bottom: 25px;
 }
 
 #main {
@@ -7,6 +8,17 @@ body {
     width: 80%;
     max-width: 800px;
     display: flex;
+    /*margin-bottom: 25px;*/
+}
+
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+    background-color: #f5f8fa;
+    text-align: center;
 }
 
 #shown-articles {
@@ -111,6 +123,10 @@ body {
 }
 .article-item + .article-item {
     margin-top: 10px;
+}
+
+.article-head {
+    font-weight: 600;
 }
 
 .article-image {
