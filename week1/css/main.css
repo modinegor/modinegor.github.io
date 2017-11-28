@@ -1,0 +1,154 @@
+body {
+    background-color: #e6ecf0;
+}
+
+#main {
+    margin: auto;
+    width: 80%;
+    max-width: 800px;
+    display: flex;
+}
+
+#shown-articles {
+    float: left;
+    width: 70%;
+    margin-right: 15px;
+}
+
+#info-message {
+    font-size: 18px;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 5%;
+    background-color: #f5f8fa;
+}
+
+#shown-sources {
+    height: 210px;
+    float: left;
+    width: 190px;
+}
+
+.source-item {
+    padding: 3px;
+}
+.source-item + .source-item {
+    border-top: solid 1px #e6ecf0;
+}
+
+#sources {
+    background: white;
+    float: left;
+    flex: 1;
+    padding: 5px;
+    height: 305px;
+}
+
+#sources-box {
+    display: flex;
+}
+
+.source-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#scroll {
+    height: 200px;
+    width: 15px;
+    float: right;
+    margin-left: 5px;
+}
+
+#scroll div {
+    width: 13px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 21px;
+}
+#scroll-down {
+    margin-top: 160px;
+    transform: rotate(180deg);
+}
+
+.source-logo {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin: 2px 5px 2px 0;
+    border-radius: 50%;
+}
+
+.source-item {
+    height: 60px;
+}
+
+.read-source-button {
+    display: inline-block;
+    color: #444;
+    border: 1px solid #CCC;
+    background: #DDD;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+    cursor: pointer;
+    vertical-align: middle;
+    width: 110px;
+    padding: 5px;
+    text-align: center;
+    margin-top: 5px;
+}
+.read-source-button:active {
+    color: red;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+}
+
+.article-item {
+    background-color: #f5f8fa;
+    padding: 5px;
+}
+.article-item + .article-item {
+    margin-top: 10px;
+}
+
+.article-image {
+    margin: 5px 25px;
+}
+
+.article-image img {
+    max-height: 300px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.article-title {
+    font-weight: 600;
+    margin: 5px 5px 0 5px;
+}
+
+.article-info {
+    margin: 0 5px 5px 5px;
+}
+
+#filter div:first-child {
+    background-color: #f5f8fa;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 2px 0;
+    margin-bottom: 5px;
+}
+
+#filter span {
+    width: 80px;
+    padding-left: 10px;
+    display: inline-block;
+}
+
+#filter select {
+    width: 110px;
+    display: inline-block;
+    margin-top: 2px;
+}
