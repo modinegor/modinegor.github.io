@@ -15,7 +15,26 @@ body {
     #main {
         width: 100%;
         min-width: 300px;
-        display: flex;
+    }
+
+    #shown-articles {
+        width: 80%;
+    }
+
+    #shown-sources {
+        width: 140px;
+    }
+
+    .read-source-button {
+        width: 60px;
+    }
+
+    #filter select {
+        width: 60px;
+    }
+
+    .article-image img {
+        max-height: 200px;
     }
 }
 
