@@ -11,33 +11,6 @@ body {
     min-width: 300px;
 }
 
-@media (max-width: 1200px) {
-    #main {
-        width: 100%;
-        min-width: 300px;
-    }
-
-    #shown-articles {
-        width: 80%;
-    }
-
-    #shown-sources {
-        width: 140px;
-    }
-
-    .read-source-button {
-        width: 60px;
-    }
-
-    #filter select {
-        width: 60px;
-    }
-
-    .article-image img {
-        max-height: 200px;
-    }
-}
-
 #footer {
     position: fixed;
     left: 0;
@@ -194,4 +167,31 @@ body {
     width: 110px;
     display: inline-block;
     margin-top: 2px;
+}
+
+@media (max-width: 1200px) {
+    #main {
+        width: 100%;
+        min-width: 300px;
+    }
+
+    #shown-articles {
+        width: 80%;
+    }
+
+    #shown-sources {
+        width: 140px;
+    }
+
+    .read-source-button {
+        width: 60px;
+    }
+
+    #filter select {
+        width: 60px;
+    }
+
+    .article-image img {
+        max-height: 200px;
+    }
 }
