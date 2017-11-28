@@ -11,6 +11,14 @@ body {
     min-width: 300px;
 }
 
+@media (max-width: 1200px) {
+    #main {
+        width: 100%;
+        min-width: 300px;
+        display: flex;
+    }
+}
+
 #footer {
     position: fixed;
     left: 0;
