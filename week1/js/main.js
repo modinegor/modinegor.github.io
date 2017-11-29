@@ -105,9 +105,6 @@ function changeFilter() {
 }
 
 function scrollSources(event) {
-    document.getElementById('scroll-up').removeEventListener('click', scrollSources);
-    document.getElementById('scroll-down').removeEventListener('click', scrollSources);
-
     const {target:{id:target}} = event,
         div = document.getElementById('shown-sources'),
         child = div.childNodes;
@@ -126,15 +123,10 @@ function scrollSources(event) {
         div.appendChild((new Source(sources[new_item])).getHtmlElement());
         shown_sources.push(new_item);
     }
-
-    document.getElementById('scroll-up').addEventListener('click', scrollSources);
-    document.getElementById('scroll-down').addEventListener('click', scrollSources);
 }
 
 function showArticles(event) {
     const target = event.target;
-
-    target.removeEventListener('click', showArticles);
 
     fetch(`https://newsapi.org/v2/top-headlines?sources=${target.id}&apiKey=${apikey}`)
         .then(responce => responce.json())
@@ -148,11 +140,8 @@ function showArticles(event) {
 
         })
         .catch((err) => {
-            console.log(err);
             showMessage(`Error: ${err}`);
         });
-
-    target.addEventListener('click', showArticles);
 }
 
 class Source {
@@ -163,6 +152,13 @@ class Source {
             name: this.name,
             url: this.url,
         } = obj);
+
+        return new Proxy(this, {
+            set(target, name, value) {
+                console.log(target, name, value);
+                throw new Error('Source object is read only object')
+            }
+        })
     }
 
     getHtmlElement() {
@@ -199,6 +195,15 @@ class Article {
             source: {id: this.source_id, name: this.source_name},
             urlToImage: this.image_url,
         } = obj);
+
+        let article_this = this;
+
+        return new Proxy(this, {
+            set(target, name, value) {
+                console.log(target, name, value);
+                throw new Error('Article object is read only object')
+            }
+        })
     }
 
     get publishedAt() {
