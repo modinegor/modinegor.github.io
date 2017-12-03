@@ -155,8 +155,7 @@ class Source {
 
         return new Proxy(this, {
             set(target, name, value) {
-                console.log(target, name, value);
-                throw new Error('Source object is read only object')
+                throw new Error('Source object is read only object');
             }
         })
     }
@@ -177,7 +176,7 @@ class Source {
     }
 
     get button() {
-        return `<div class="read-source-button" id="${this.id}">Read Me</div>`
+        return `<div class="read-source-button" id="${this.id}">Read Me</div>`;
     }
 
     get title() {
@@ -196,12 +195,16 @@ class Article {
             urlToImage: this.image_url,
         } = obj);
 
-        let article_this = this;
-
         return new Proxy(this, {
             set(target, name, value) {
-                console.log(target, name, value);
-                throw new Error('Article object is read only object')
+                throw new Error('Article object is read only object');
+            },
+
+            get(target, name) {
+                if (name === 'description' || name === 'article_title') {
+                    return target[name].replace(/(\d{5,})/g, (_, res) => {return parseInt(res).toLocaleString()});
+                }
+                return target[name];
             }
         })
     }
@@ -210,11 +213,11 @@ class Article {
         if (!this.time)
             return '';
 
-        return ` @ ${(new Date(this.time)).toUTCString()}`;
+        return ` @ ${(new Date(this.time)).toLocaleString()}`;
     }
 
     get head() {
-        return `<div class="article-head">${this.source_name || this.source_id}${this.publishedAt}</div>`
+        return `<div class="article-head">${this.source_name || this.source_id}${this.publishedAt}</div>`;
     }
 
     get title() {
@@ -225,17 +228,17 @@ class Article {
         if (!this.image_url)
             return '';
 
-        return `<a href="${this.url}" target="_blank"><div class="article-image"><img src="${this.image_url}"/></div></a>`
+        return `<a href="${this.url}" target="_blank"><div class="article-image"><img src="${this.image_url}"/></div></a>`;
     }
 
     get info() {
         if (!this.image_url) {
             const description = this.description || `Read this article on ${this.source_name || this.source_id} website`;
-            return `<a href="${this.url}" target="_blank" class="article-info">${description}</a>`
+            return `<a href="${this.url}" target="_blank" class="article-info">${description}</a>`;
         } else if (this.description)
             return `<div class="article-info">${this.description}</div>`;
 
-        return ''
+        return '';
     }
 
     getHtmlElement() {
