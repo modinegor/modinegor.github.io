@@ -38,7 +38,7 @@ function showSources(category, country, language) {
     if (country) requests = requests + '&country=' + country;
     if (language) requests = requests + '&language=' + language;
 
-    fetch(base_url + '?' + requests.substr(1) + '&apiKey=' + apikey).then(function (response) {
+    fetch(base_url + '?' + requests.substr(1) + '&apiKey=' + apikey, { mode: 'cors', method: 'GET' }).then(function (response) {
         return response.json();
     }, function (err) {
         return showMessage('Error: ' + err);
@@ -62,12 +62,21 @@ function showSources(category, country, language) {
 }
 
 function initFilter() {
-    var categories = new Set(),
+    var /*categories = new Set(),
         countries = new Set(),
-        languages = new Set(),
+        languages = new Set(), */
+    categories = new Array(),
+        countries = new Array(),
+        languages = new Array(),
         category_cmbx = document.getElementById('select-category'),
         language_cmbx = document.getElementById('select-language'),
         country_cmbx = document.getElementById('select-country');
+
+    // for (let source of sources) {
+    //     categories.add(source.category);
+    //     countries.add(source.country);
+    //     languages.add(source.language);
+    // }
 
     for (var _iterator = sources, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
         var _ref;
@@ -83,12 +92,12 @@ function initFilter() {
 
         var source = _ref;
 
-        categories.add(source.category);
-        countries.add(source.country);
-        languages.add(source.language);
+        categories.indexOf(source.category) === -1 && categories.push(source.category);
+        countries.indexOf(source.country) === -1 && countries.push(source.country);
+        languages.indexOf(source.language) === -1 && languages.push(source.language);
     }
 
-    for (var _iterator2 = [].concat(_toConsumableArray(categories)).sort(), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+    for (var _iterator2 = [].concat(categories).sort(), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
         var _ref2;
 
         if (_isArray2) {
@@ -106,7 +115,7 @@ function initFilter() {
         option.innerHTML = category;
         category_cmbx.appendChild(option);
     }
-    for (var _iterator3 = [].concat(_toConsumableArray(countries)).sort(), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
+    for (var _iterator3 = [].concat(countries).sort(), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
         var _ref3;
 
         if (_isArray3) {
@@ -124,7 +133,7 @@ function initFilter() {
         _option.innerHTML = country;
         country_cmbx.appendChild(_option);
     }
-    for (var _iterator4 = [].concat(_toConsumableArray(languages)).sort(), _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator]();;) {
+    for (var _iterator4 = [].concat(languages).sort(), _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator]();;) {
         var _ref4;
 
         if (_isArray4) {
@@ -183,7 +192,7 @@ function scrollSources(event) {
 function showArticles(event) {
     var target = event.target;
 
-    fetch('https://newsapi.org/v2/top-headlines?sources=' + target.id + '&apiKey=' + apikey).then(function (responce) {
+    fetch('https://newsapi.org/v2/top-headlines?sources=' + target.id + '&apiKey=' + apikey, { mode: 'cors', method: 'GET' }).then(function (responce) {
         return responce.json();
     }, function (err) {
         return showMessage('Error: ' + err);
@@ -215,17 +224,15 @@ var Source = function () {
     function Source(obj) {
         _classCallCheck(this, Source);
 
+        // return new Proxy(this, {
+        //     set(target, name, value) {
+        //         throw new Error('Source object is read only object');
+        //     }
+        // })
         this.description = obj.description;
         this.id = obj.id;
         this.name = obj.name;
         this.url = obj.url;
-
-
-        return new Proxy(this, {
-            set: function set(target, name, value) {
-                throw new Error('Source object is read only object');
-            }
-        });
     }
 
     _createClass(Source, [{
@@ -264,6 +271,18 @@ var Article = function () {
     function Article(obj) {
         _classCallCheck(this, Article);
 
+        // return new Proxy(this, {
+        //     set(target, name, value) {
+        //         throw new Error('Article object is read only object');
+        //     },
+        //
+        //     get(target, name) {
+        //         if (name === 'description' || name === 'article_title') {
+        //             return target[name].replace(/(\d{5,})/g, (_, res) => {return parseInt(res).toLocaleString()});
+        //         }
+        //         return target[name];
+        //     }
+        // })
         this.description = obj.description;
         this.article_title = obj.title;
         this.time = obj.publishedAt;
@@ -272,21 +291,6 @@ var Article = function () {
         this.source_id = _obj$source.id;
         this.source_name = _obj$source.name;
         this.image_url = obj.urlToImage;
-
-
-        return new Proxy(this, {
-            set: function set(target, name, value) {
-                throw new Error('Article object is read only object');
-            },
-            get: function get(target, name) {
-                if (name === 'description' || name === 'article_title') {
-                    return target[name].replace(/(\d{5,})/g, function (_, res) {
-                        return parseInt(res).toLocaleString();
-                    });
-                }
-                return target[name];
-            }
-        });
     }
 
     _createClass(Article, [{

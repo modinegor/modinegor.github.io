@@ -32,7 +32,7 @@ function showSources(category, country, language) {
     if (language)
         requests = `${requests}&language=${language}`;
 
-    fetch(`${base_url}?${requests.substr(1)}&apiKey=${apikey}`)
+    fetch(`${base_url}?${requests.substr(1)}&apiKey=${apikey}`, {mode: 'cors', method: 'GET'})
         .then(response => response.json(),
             (err) => showMessage(`Error: ${err}`))
         .then((data) => {
@@ -56,17 +56,26 @@ function showSources(category, country, language) {
 }
 
 function initFilter() {
-    let categories = new Set(),
+    let /*categories = new Set(),
         countries = new Set(),
-        languages = new Set(),
+        languages = new Set(), */
+        categories = new Array(),
+        countries = new Array(),
+        languages = new Array(),
         category_cmbx = document.getElementById('select-category'),
         language_cmbx = document.getElementById('select-language'),
         country_cmbx = document.getElementById('select-country');
 
+    // for (let source of sources) {
+    //     categories.add(source.category);
+    //     countries.add(source.country);
+    //     languages.add(source.language);
+    // }
+
     for (let source of sources) {
-        categories.add(source.category);
-        countries.add(source.country);
-        languages.add(source.language);
+        categories.indexOf(source.category) === -1 && categories.push(source.category);
+        countries.indexOf(source.country) === - 1 && countries.push(source.country);
+        languages.indexOf(source.language) === -1 && languages.push(source.language);
     }
 
     for (let category of [...categories].sort()) {
@@ -127,7 +136,7 @@ function scrollSources(event) {
 function showArticles(event) {
     const target = event.target;
 
-    fetch(`https://newsapi.org/v2/top-headlines?sources=${target.id}&apiKey=${apikey}`)
+    fetch(`https://newsapi.org/v2/top-headlines?sources=${target.id}&apiKey=${apikey}`, {mode: 'cors', method: 'GET'})
         .then(responce => responce.json(),
             err => showMessage(`Error: ${err}`))
         .then((data) => {
@@ -149,11 +158,11 @@ class Source {
             url: this.url,
         } = obj);
 
-        return new Proxy(this, {
-            set(target, name, value) {
-                throw new Error('Source object is read only object');
-            }
-        })
+        // return new Proxy(this, {
+        //     set(target, name, value) {
+        //         throw new Error('Source object is read only object');
+        //     }
+        // })
     }
 
     getHtmlElement() {
@@ -191,18 +200,18 @@ class Article {
             urlToImage: this.image_url,
         } = obj);
 
-        return new Proxy(this, {
-            set(target, name, value) {
-                throw new Error('Article object is read only object');
-            },
-
-            get(target, name) {
-                if (name === 'description' || name === 'article_title') {
-                    return target[name].replace(/(\d{5,})/g, (_, res) => {return parseInt(res).toLocaleString()});
-                }
-                return target[name];
-            }
-        })
+        // return new Proxy(this, {
+        //     set(target, name, value) {
+        //         throw new Error('Article object is read only object');
+        //     },
+        //
+        //     get(target, name) {
+        //         if (name === 'description' || name === 'article_title') {
+        //             return target[name].replace(/(\d{5,})/g, (_, res) => {return parseInt(res).toLocaleString()});
+        //         }
+        //         return target[name];
+        //     }
+        // })
     }
 
     get publishedAt() {
