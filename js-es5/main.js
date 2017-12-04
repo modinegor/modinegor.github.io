@@ -40,6 +40,8 @@ function showSources(category, country, language) {
 
     fetch(base_url + '?' + requests.substr(1) + '&apiKey=' + apikey).then(function (response) {
         return response.json();
+    }, function (err) {
+        return showMessage('Error: ' + err);
     }).then(function (data) {
         var shown = document.getElementById('shown-sources');
 
@@ -54,8 +56,8 @@ function showSources(category, country, language) {
         }
 
         if (!init_filter) initFilter();
-    }).catch(function (err) {
-        showMessage('Error: ' + err);
+
+        var a = 1;
     });
 }
 
@@ -67,112 +69,78 @@ function initFilter() {
         language_cmbx = document.getElementById('select-language'),
         country_cmbx = document.getElementById('select-country');
 
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
+    for (var _iterator = sources, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+        var _ref;
 
-    try {
-        for (var _iterator = sources[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var source = _step.value;
+        if (_isArray) {
+            if (_i >= _iterator.length) break;
+            _ref = _iterator[_i++];
+        } else {
+            _i = _iterator.next();
+            if (_i.done) break;
+            _ref = _i.value;
+        }
 
-            categories.add(source.category);
-            countries.add(source.country);
-            languages.add(source.language);
-        }
-    } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-    } finally {
-        try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-                _iterator.return();
-            }
-        } finally {
-            if (_didIteratorError) {
-                throw _iteratorError;
-            }
-        }
+        var source = _ref;
+
+        categories.add(source.category);
+        countries.add(source.country);
+        languages.add(source.language);
     }
 
-    var _iteratorNormalCompletion2 = true;
-    var _didIteratorError2 = false;
-    var _iteratorError2 = undefined;
+    for (var _iterator2 = [].concat(_toConsumableArray(categories)).sort(), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+        var _ref2;
 
-    try {
-        for (var _iterator2 = [].concat(_toConsumableArray(categories)).sort()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var category = _step2.value;
+        if (_isArray2) {
+            if (_i2 >= _iterator2.length) break;
+            _ref2 = _iterator2[_i2++];
+        } else {
+            _i2 = _iterator2.next();
+            if (_i2.done) break;
+            _ref2 = _i2.value;
+        }
 
-            var option = document.createElement('option');
-            option.innerHTML = category;
-            category_cmbx.appendChild(option);
-        }
-    } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-    } finally {
-        try {
-            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                _iterator2.return();
-            }
-        } finally {
-            if (_didIteratorError2) {
-                throw _iteratorError2;
-            }
-        }
+        var category = _ref2;
+
+        var option = document.createElement('option');
+        option.innerHTML = category;
+        category_cmbx.appendChild(option);
     }
+    for (var _iterator3 = [].concat(_toConsumableArray(countries)).sort(), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
+        var _ref3;
 
-    var _iteratorNormalCompletion3 = true;
-    var _didIteratorError3 = false;
-    var _iteratorError3 = undefined;
-
-    try {
-        for (var _iterator3 = [].concat(_toConsumableArray(countries)).sort()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-            var country = _step3.value;
-
-            var option = document.createElement('option');
-            option.innerHTML = country;
-            country_cmbx.appendChild(option);
+        if (_isArray3) {
+            if (_i3 >= _iterator3.length) break;
+            _ref3 = _iterator3[_i3++];
+        } else {
+            _i3 = _iterator3.next();
+            if (_i3.done) break;
+            _ref3 = _i3.value;
         }
-    } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-    } finally {
-        try {
-            if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                _iterator3.return();
-            }
-        } finally {
-            if (_didIteratorError3) {
-                throw _iteratorError3;
-            }
-        }
+
+        var country = _ref3;
+
+        var _option = document.createElement('option');
+        _option.innerHTML = country;
+        country_cmbx.appendChild(_option);
     }
+    for (var _iterator4 = [].concat(_toConsumableArray(languages)).sort(), _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator]();;) {
+        var _ref4;
 
-    var _iteratorNormalCompletion4 = true;
-    var _didIteratorError4 = false;
-    var _iteratorError4 = undefined;
-
-    try {
-        for (var _iterator4 = [].concat(_toConsumableArray(languages)).sort()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-            var language = _step4.value;
-
-            var option = document.createElement('option');
-            option.innerHTML = language;
-            language_cmbx.appendChild(option);
+        if (_isArray4) {
+            if (_i4 >= _iterator4.length) break;
+            _ref4 = _iterator4[_i4++];
+        } else {
+            _i4 = _iterator4.next();
+            if (_i4.done) break;
+            _ref4 = _i4.value;
         }
-    } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
-    } finally {
-        try {
-            if (!_iteratorNormalCompletion4 && _iterator4.return) {
-                _iterator4.return();
-            }
-        } finally {
-            if (_didIteratorError4) {
-                throw _iteratorError4;
-            }
-        }
+
+        var language = _ref4;
+
+        var _option2 = document.createElement('option');
+        _option2.innerHTML = language;
+        language_cmbx.appendChild(_option2);
     }
 
     category_cmbx.addEventListener('change', changeFilter);
@@ -217,37 +185,29 @@ function showArticles(event) {
 
     fetch('https://newsapi.org/v2/top-headlines?sources=' + target.id + '&apiKey=' + apikey).then(function (responce) {
         return responce.json();
+    }, function (err) {
+        return showMessage('Error: ' + err);
     }).then(function (data) {
         var articles_div = document.getElementById('shown-articles');
 
         articles_div.innerHTML = '';
 
-        var _iteratorNormalCompletion5 = true;
-        var _didIteratorError5 = false;
-        var _iteratorError5 = undefined;
+        for (var _iterator5 = data.articles, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : _iterator5[Symbol.iterator]();;) {
+            var _ref5;
 
-        try {
-            for (var _iterator5 = data.articles[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-                var article = _step5.value;
+            if (_isArray5) {
+                if (_i5 >= _iterator5.length) break;
+                _ref5 = _iterator5[_i5++];
+            } else {
+                _i5 = _iterator5.next();
+                if (_i5.done) break;
+                _ref5 = _i5.value;
+            }
 
-                articles_div.appendChild(new Article(article).getHtmlElement());
-            }
-        } catch (err) {
-            _didIteratorError5 = true;
-            _iteratorError5 = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion5 && _iterator5.return) {
-                    _iterator5.return();
-                }
-            } finally {
-                if (_didIteratorError5) {
-                    throw _iteratorError5;
-                }
-            }
+            var article = _ref5;
+
+            articles_div.appendChild(new Article(article).getHtmlElement());
         }
-    }).catch(function (err) {
-        showMessage('Error: ' + err);
     });
 }
 
@@ -382,9 +342,9 @@ function shuffle_array(array) {
     for (var i = 1; i < array.length; i++) {
         var rand_i = Math.floor(Math.random() * (i + 1));
 
-        var _ref = [array[rand_i], array[i]];
-        array[i] = _ref[0];
-        array[rand_i] = _ref[1];
+        var _ref6 = [array[rand_i], array[i]];
+        array[i] = _ref6[0];
+        array[rand_i] = _ref6[1];
     }
 }
 //# sourceMappingURL=main.js.map

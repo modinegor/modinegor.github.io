@@ -33,7 +33,8 @@ function showSources(category, country, language) {
         requests = `${requests}&language=${language}`;
 
     fetch(`${base_url}?${requests.substr(1)}&apiKey=${apikey}`)
-        .then(response => response.json())
+        .then(response => response.json(),
+            (err) => showMessage(`Error: ${err}`))
         .then((data) => {
             const shown = document.getElementById('shown-sources');
 
@@ -50,9 +51,7 @@ function showSources(category, country, language) {
             if (!init_filter)
                 initFilter();
 
-        })
-        .catch((err) => {
-            showMessage(`Error: ${err}`);
+            let a = 1;
         });
 }
 
@@ -129,7 +128,8 @@ function showArticles(event) {
     const target = event.target;
 
     fetch(`https://newsapi.org/v2/top-headlines?sources=${target.id}&apiKey=${apikey}`)
-        .then(responce => responce.json())
+        .then(responce => responce.json(),
+            err => showMessage(`Error: ${err}`))
         .then((data) => {
             let articles_div = document.getElementById('shown-articles');
 
@@ -137,10 +137,6 @@ function showArticles(event) {
 
             for (let article of data.articles)
                 articles_div.appendChild((new Article(article)).getHtmlElement());
-
-        })
-        .catch((err) => {
-            showMessage(`Error: ${err}`);
         });
 }
 
