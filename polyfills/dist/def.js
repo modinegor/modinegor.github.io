@@ -4,14 +4,6 @@ class Employee {
         this.name = "Default Name";
     }
 
-}
-
-class Employee {
-    constructor() {
-        this.age = 18;
-        this.name = "Default Name";
-    }
-
     isValid() {
         if (this.age === null) {
             console.error("Value could not be null!");
@@ -34,7 +26,7 @@ class Employee {
         }
 
         if (this.name.length >= 120) {
-            console.error("Max string length is 20!");
+            console.error("Max string length is 120!");
             return false;
         }
 
@@ -48,4 +40,5 @@ class Employee {
             return false;
         }
     }
+
 }
