@@ -56,26 +56,17 @@ function showSources(category, country, language) {
 }
 
 function initFilter() {
-    let /*categories = new Set(),
+    let categories = new Set(),
         countries = new Set(),
-        languages = new Set(), */
-        categories = new Array(),
-        countries = new Array(),
-        languages = new Array(),
+        languages = new Set(),
         category_cmbx = document.getElementById('select-category'),
         language_cmbx = document.getElementById('select-language'),
         country_cmbx = document.getElementById('select-country');
 
-    // for (let source of sources) {
-    //     categories.add(source.category);
-    //     countries.add(source.country);
-    //     languages.add(source.language);
-    // }
-
     for (let source of sources) {
-        categories.indexOf(source.category) === -1 && categories.push(source.category);
-        countries.indexOf(source.country) === - 1 && countries.push(source.country);
-        languages.indexOf(source.language) === -1 && languages.push(source.language);
+        categories.add(source.category);
+        countries.add(source.country);
+        languages.add(source.language);
     }
 
     for (let category of [...categories].sort()) {

@@ -62,21 +62,12 @@ function showSources(category, country, language) {
 }
 
 function initFilter() {
-    var /*categories = new Set(),
+    var categories = new Set(),
         countries = new Set(),
-        languages = new Set(), */
-    categories = new Array(),
-        countries = new Array(),
-        languages = new Array(),
+        languages = new Set(),
         category_cmbx = document.getElementById('select-category'),
         language_cmbx = document.getElementById('select-language'),
         country_cmbx = document.getElementById('select-country');
-
-    // for (let source of sources) {
-    //     categories.add(source.category);
-    //     countries.add(source.country);
-    //     languages.add(source.language);
-    // }
 
     for (var _iterator = sources, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
         var _ref;
@@ -92,12 +83,12 @@ function initFilter() {
 
         var source = _ref;
 
-        categories.indexOf(source.category) === -1 && categories.push(source.category);
-        countries.indexOf(source.country) === -1 && countries.push(source.country);
-        languages.indexOf(source.language) === -1 && languages.push(source.language);
+        categories.add(source.category);
+        countries.add(source.country);
+        languages.add(source.language);
     }
 
-    for (var _iterator2 = [].concat(categories).sort(), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+    for (var _iterator2 = [].concat(_toConsumableArray(categories)).sort(), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
         var _ref2;
 
         if (_isArray2) {
@@ -115,7 +106,7 @@ function initFilter() {
         option.innerHTML = category;
         category_cmbx.appendChild(option);
     }
-    for (var _iterator3 = [].concat(countries).sort(), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
+    for (var _iterator3 = [].concat(_toConsumableArray(countries)).sort(), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
         var _ref3;
 
         if (_isArray3) {
@@ -133,7 +124,7 @@ function initFilter() {
         _option.innerHTML = country;
         country_cmbx.appendChild(_option);
     }
-    for (var _iterator4 = [].concat(languages).sort(), _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator]();;) {
+    for (var _iterator4 = [].concat(_toConsumableArray(languages)).sort(), _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator]();;) {
         var _ref4;
 
         if (_isArray4) {
