@@ -4,5 +4,5 @@
     ["transform-es2015-for-of", {
       "loose": true
     }],
-    "es6-promise1"]
+    "es6-promise"]
 }
