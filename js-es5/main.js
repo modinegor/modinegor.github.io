@@ -56,8 +56,6 @@ function showSources(category, country, language) {
         }
 
         if (!init_filter) initFilter();
-
-        var a = 1;
     });
 }
 

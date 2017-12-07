@@ -50,8 +50,6 @@ function showSources(category, country, language) {
 
             if (!init_filter)
                 initFilter();
-
-            let a = 1;
         });
 }
 
