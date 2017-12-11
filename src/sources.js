@@ -1,25 +1,11 @@
-const apikey = '58c65ea125b949f39e840783834dae42';
+import {apikey} from "./const";
+import {showMessage} from "./errors";
 
-(() => {
-    window.addEventListener('load', init);
-})(window, document, undefined);
 
 let sources, shown_sources,
     init_filter = false;
 
-function init() {
-    showSources();
-    showMessage("Chose source to see the news");
-
-    document.getElementById('scroll-up').addEventListener('click', scrollSources);
-    document.getElementById('scroll-down').addEventListener('click', scrollSources);
-}
-
-function showMessage(message) {
-    document.getElementById('shown-articles').innerHTML = `<div id="info-message">${message}</div>`;
-}
-
-function showSources(category, country, language) {
+export function showSources(category, country, language) {
     const base_url = 'https://newsapi.org/v2/sources';
     let requests = '';
 
@@ -101,7 +87,7 @@ function changeFilter() {
         language_cmbx.options[language_cmbx.selectedIndex].text);
 }
 
-function scrollSources(event) {
+export function scrollSources(event) {
     const {target:{id:target}} = event,
         div = document.getElementById('shown-sources'),
         child = div.childNodes;
@@ -123,19 +109,9 @@ function scrollSources(event) {
 }
 
 function showArticles(event) {
-    const target = event.target;
-
-    fetch(`https://newsapi.org/v2/top-headlines?sources=${target.id}&apiKey=${apikey}`, {mode: 'cors', method: 'GET'})
-        .then(responce => responce.json(),
-            err => showMessage(`Error: ${err}`))
-        .then((data) => {
-            let articles_div = document.getElementById('shown-articles');
-
-            articles_div.innerHTML = '';
-
-            for (let article of data.articles)
-                articles_div.appendChild((new Article(article)).getHtmlElement());
-        });
+    define(['./articles.js'], (module) => {
+        module.showArticles(event.target);
+    })
 }
 
 class Source {
@@ -146,12 +122,6 @@ class Source {
             name: this.name,
             url: this.url,
         } = obj);
-
-        // return new Proxy(this, {
-        //     set(target, name, value) {
-        //         throw new Error('Source object is read only object');
-        //     }
-        // })
     }
 
     getHtmlElement() {
@@ -175,73 +145,6 @@ class Source {
 
     get title() {
         return `<div class="source-name">${this.name}</div>`;
-    }
-}
-
-class Article {
-    constructor(obj) {
-        ({
-            description: this.description,
-            title: this.article_title,
-            publishedAt: this.time,
-            url: this.url,
-            source: {id: this.source_id, name: this.source_name},
-            urlToImage: this.image_url,
-        } = obj);
-
-        // return new Proxy(this, {
-        //     set(target, name, value) {
-        //         throw new Error('Article object is read only object');
-        //     },
-        //
-        //     get(target, name) {
-        //         if (name === 'description' || name === 'article_title') {
-        //             return target[name].replace(/(\d{5,})/g, (_, res) => {return parseInt(res).toLocaleString()});
-        //         }
-        //         return target[name];
-        //     }
-        // })
-    }
-
-    get publishedAt() {
-        if (!this.time)
-            return '';
-
-        return ` @ ${(new Date(this.time)).toLocaleString()}`;
-    }
-
-    get head() {
-        return `<div class="article-head">${this.source_name || this.source_id}${this.publishedAt}</div>`;
-    }
-
-    get title() {
-        return `<div class="article-title">${this.article_title}</div>`;
-    }
-
-    get image() {
-        if (!this.image_url)
-            return '';
-
-        return `<a href="${this.url}" target="_blank"><div class="article-image"><img src="${this.image_url}"/></div></a>`;
-    }
-
-    get info() {
-        if (!this.image_url) {
-            const description = this.description || `Read this article on ${this.source_name || this.source_id} website`;
-            return `<a href="${this.url}" target="_blank" class="article-info">${description}</a>`;
-        } else if (this.description)
-            return `<div class="article-info">${this.description}</div>`;
-
-        return '';
-    }
-
-    getHtmlElement() {
-        const div = document.createElement('div');
-
-        div.className = 'article-item';
-        div.innerHTML = `${this.head}${this.title}${this.image}${this.info}`;
-
-        return div;
     }
 }
 
