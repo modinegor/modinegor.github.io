@@ -1,15 +1,13 @@
-import {apikey} from "./const";
+import {apikey} from "../helpers/const";
 import {showMessage} from "./errors";
 
-import '../css/articles.css'
 
-
-export function showArticles(target) {
-    fetch(`https://newsapi.org/v2/top-headlines?sources=${target.id}&apiKey=${apikey}`, {mode: 'cors', method: 'GET'})
+export function showArticles(event) {
+    fetch(`https://newsapi.org/v2/top-headlines?sources=${event.target.id}&apiKey=${apikey}`, {mode: 'cors', method: 'GET'})
         .then(response => response.json(),
             err => showMessage(`Error: ${err}`))
         .then((data) => {
-            let articles_div = document.getElementById('shown-articles');
+            let articles_div = document.getElementById('articles');
 
             articles_div.innerHTML = '';
 

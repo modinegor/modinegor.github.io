@@ -1,5 +1,7 @@
-import {apikey} from "./const";
+import {apikey} from "../helpers/const";
 import {showMessage} from "./errors";
+import {shuffle_array} from '../helpers/helpers.js';
+import {showArticles} from "./articles";
 
 
 let sources, shown_sources,
@@ -108,12 +110,6 @@ export function scrollSources(event) {
     }
 }
 
-function showArticles(event) {
-    define(['./articles.js'], (module) => {
-        module.showArticles(event.target);
-    })
-}
-
 class Source {
     constructor(obj) {
         ({
@@ -145,13 +141,5 @@ class Source {
 
     get title() {
         return `<div class="source-name">${this.name}</div>`;
-    }
-}
-
-function shuffle_array(array) {
-    for (let i = 1; i < array.length; i++) {
-        let rand_i = Math.floor(Math.random() * (i + 1));
-
-        [array[i], array[rand_i]] = [array[rand_i], array[i]];
     }
 }
