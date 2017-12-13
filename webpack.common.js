@@ -6,7 +6,7 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: 'dist/'
+        publicPath: './'
     },
 
     module: {
@@ -16,7 +16,7 @@ module.exports = {
             use: {
                 loader: 'babel-loader',
                 options:{
-                    presets: ["@babel/es2015"],
+                    presets: ["es2015"],
                     plugins: [
                         ["transform-es2015-for-of", {
                             "loose": true
