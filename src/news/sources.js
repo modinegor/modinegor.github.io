@@ -1,7 +1,8 @@
 import {apikey} from "../helpers/const";
-import {showMessage} from "./errors";
+import {Error} from "./errors";
 import {shuffle_array} from '../helpers/helpers.js';
 import {showArticles} from "./articles";
+import {htmlElement} from "../patterns/factory";
 
 
 let sources, shown_sources,
@@ -22,7 +23,7 @@ export function showSources(category, country, language) {
 
     fetch(`${base_url}?${requests.substr(1)}&apiKey=${apikey}`, {mode: 'cors', method: 'GET'})
         .then(response => response.json(),
-            (err) => showMessage(`Error: ${err}`))
+            (err) => Error.show(`Error: ${err}`))
         .then((data) => {
             const shown = document.getElementById('shown-sources');
 
@@ -124,7 +125,7 @@ class Source {
         const div = document.createElement('div');
 
         div.className = 'source-item';
-        div.innerHTML = `${this.logo}<div>${this.title}${this.button}</div>`;
+        div.innerHTML = this.logo + htmlElement('div', {}, [this.title, this.button]);
 
         div.getElementsByClassName("read-source-button")[0].addEventListener('click', showArticles);
 
@@ -132,14 +133,15 @@ class Source {
     }
 
     get logo() {
-        return `<img src="https://icons.better-idea.org/icon?url=${this.url}&size=50" class="source-logo" title="${this.description}"/>`;
+        return htmlElement('image', {src: `https://icons.better-idea.org/icon?url=${this.url}&size=50`,
+            class: 'source-logo', title: this.description});
     }
 
     get button() {
-        return `<div class="read-source-button" id="${this.id}">Read Me</div>`;
+        return htmlElement('div', {class: 'read-source-button', id: this.id}, 'Read Me');
     }
 
     get title() {
-        return `<div class="source-name">${this.name}</div>`;
+        return htmlElement('div', {class: 'source-name'}, this.name);
     }
 }

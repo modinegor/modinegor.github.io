@@ -57,7 +57,7 @@ function showNewsPage() {
         require('../css/news/media/media_max_width_1200.sass');
 
         module.showSources();
-        errors.showMessage("Chose source to see the news");
+        errors.Error.show("Chose source to see the news");
 
         document.getElementById('scroll-up').addEventListener('click', module.scrollSources);
         document.getElementById('scroll-down').addEventListener('click', module.scrollSources);

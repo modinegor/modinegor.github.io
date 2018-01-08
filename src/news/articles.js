@@ -1,11 +1,12 @@
 import {apikey} from "../helpers/const";
-import {showMessage} from "./errors";
+import {Error} from "./errors";
+import {htmlElement} from "../patterns/factory";
 
 
 export function showArticles(event) {
     fetch(`https://newsapi.org/v2/top-headlines?sources=${event.target.id}&apiKey=${apikey}`, {mode: 'cors', method: 'GET'})
         .then(response => response.json(),
-            err => showMessage(`Error: ${err}`))
+            err => Error.show(`Error: ${err}`))
         .then((data) => {
             let articles_div = document.getElementById('articles');
 
@@ -36,26 +37,30 @@ class Article {
     }
 
     get head() {
-        return `<div class="article-head">${this.source_name || this.source_id}${this.publishedAt}</div>`;
+        return htmlElement('div', {class: 'article-head'},
+            [this.source_name || this.source_id, this.publishedAt]);
     }
 
     get title() {
-        return `<div class="article-title">${this.article_title}</div>`;
+        return htmlElement('div', {class: 'article-title'}, this.article_title);
     }
 
     get image() {
         if (!this.image_url)
             return '';
 
-        return `<a href="${this.url}" target="_blank"><div class="article-image"><img src="${this.image_url}"/></div></a>`;
+        return htmlElement('link', {href: this.url, target: '_blank'},
+            htmlElement('div', {class: 'article-image'},
+                htmlElement('image', {src: this.image_url})));
     }
 
     get info() {
         if (!this.image_url) {
             const description = this.description || `Read this article on ${this.source_name || this.source_id} website`;
-            return `<a href="${this.url}" target="_blank" class="article-info">${description}</a>`;
+            return htmlElement('link', {href: this.url, target: '_blank', class: 'article-info'},
+                description);
         } else if (this.description)
-            return `<div class="article-info">${this.description}</div>`;
+            return htmlElement('div', {class: 'article-info'}, this.description);
 
         return '';
     }
