@@ -4,6 +4,8 @@ import {shuffle_array} from '../helpers/helpers.js';
 import {showArticles} from "./articles";
 import {htmlElement} from "../patterns/factory";
 
+const strategy = require('../patterns/strategy').logo_first();
+
 
 let sources, shown_sources,
     init_filter = false;
@@ -33,7 +35,10 @@ export function showSources(category, country, language) {
             shuffle_array(sources);
 
             for (let i = 0; i < 3 && i < sources.length - 1; i++) {
-                shown.appendChild((new Source(sources[i])).getHtmlElement());
+                let source = new Source(sources[i]);
+                source.setStrategy(strategy);
+
+                shown.appendChild(source.getHtmlElement());
                 shown_sources.push(i);
             }
 
@@ -119,14 +124,23 @@ class Source {
             name: this.name,
             url: this.url,
         } = obj);
+        this.strategy = undefined;
     }
 
     getHtmlElement() {
         const div = document.createElement('div');
+        let content = '';
 
         div.className = 'source-item';
-        div.innerHTML = this.logo + htmlElement('div', {}, [this.title, this.button]);
 
+        if (this.strategy)
+            content = this.render(...this.strategy);
+        else
+            content = this.logo + htmlElement('div', {}, [this.title, this.button]);
+
+        console.log(content);
+
+        div.innerHTML = content;
         div.getElementsByClassName("read-source-button")[0].addEventListener('click', showArticles);
 
         return div;
@@ -143,5 +157,40 @@ class Source {
 
     get title() {
         return htmlElement('div', {class: 'source-name'}, this.name);
+    }
+
+    setStrategy(strategy) {
+        this.strategy = strategy;
+    }
+
+    render(...items) {
+        const renders = {'logo':   this.logo,
+                         'button': this.button,
+                         'title':  this.title};
+
+        let content = '',
+            self = this;
+
+        console.log(items);
+
+        for (let item of items) {
+
+            if (item instanceof Array) {
+                for (let elem of item) {
+                    content += renders[elem];
+                }
+            } else if (item instanceof Object) {
+                for (let obj in item) {
+                    let attr = item[obj][0],
+                        body = self.render(...item[obj][1]);
+
+                    content += htmlElement(obj, attr, body);
+                }
+            } else {
+                content += renders[item];
+            }
+        }
+
+        return content;
     }
 }

@@ -1,24 +1,24 @@
-import {BoxDecorator, ImageDecorator, LinkDecorator, Render} from "./decorator";
+import {BoxDecorator, ImageDecorator, LinkDecorator, Renderer} from "./decorator";
 
 export function htmlElement(type, attr, body) {
-    const render = new Render(attr, body);
+    const renderer = new Renderer(attr, body);
     let obj;
 
     switch (type) {
         case 'div':
         case 'block':
-            obj = new BoxDecorator(render);
+            obj = new BoxDecorator(renderer);
             break;
         case 'img':
         case 'image':
-            obj = new ImageDecorator(render);
+            obj = new ImageDecorator(renderer);
             break;
         case 'a':
         case 'link':
-            obj = new LinkDecorator(render);
+            obj = new LinkDecorator(renderer);
             break;
         default:
-            obj = new BoxDecorator(render);
+            obj = new BoxDecorator(renderer);
     }
 
     return obj.render();

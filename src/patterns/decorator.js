@@ -1,5 +1,5 @@
-export class Render {
-    constructor(attr, body) {
+export class Renderer {
+    constructor(attributes, body) {
         this.item = '';
 
         for (let attr in attributes) {
@@ -9,24 +9,30 @@ export class Render {
             this.item += ` ${attr}="${value}"`;
         }
 
-        this.item += '>' + (body instanceof Array ? body.join('') : body || '');
+        if (body instanceof Array) {
+            body = body.join('');
+        }
+
+        this.body = body;
     }
 }
 
 class VisualDecorator {
     constructor(render) {
         this.content = render.item;
-        this.body = true;
+        this.body = render.body;
         this.tag = '';
-
-        if (this.content.charAt(this.content.length - 1) === '>') {
-            this.content = this.content.slice(0, -1);
-            this.body = false
-        }
     }
 
     render() {
-        return `<${this.tag}${this.content}${this.body ? `</${this.tag}>` : "/>"}`
+        let content = `<${this.tag}${this.content}`;
+
+        if(this.body !== undefined)
+            content += `>${this.body}</${this.tag}>`;
+        else
+            content += '/>';
+
+        return content;
     }
 }
 

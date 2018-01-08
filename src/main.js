@@ -15,37 +15,37 @@ function init() {
 
 function showNewsPage() {
     document.getElementById('main').innerHTML = '' +
-        '<div id="articles"></div>' +
-        '<div id="sources">' +
-            '<div id="sources-box">' +
-                '<div id="shown-sources"></div>' +
-                '<div id="scroll">' +
-                    '<div id="scroll-up">&#9651;</div>' +
-                    '<div id="scroll-down">&#9651;</div>' +
-                '</div>' +
-            '</div>' +
-            '<div id="filter">' +
-                '<div>filter sources</div>' +
-                '<div>' +
-                    '<span>Country:</span>' +
-                    '<select id="select-country">' +
-                        '<option value="default"></option>' +
-                    '</select>' +
-                '</div>' +
-                '<div>' +
-                    '<span>Language:</span>' +
-                    '<select id="select-language">' +
-                        '<option value="default"></option>' +
-                    '</select>' +
-                '</div>' +
-                '<div>' +
-                    '<span>Category:</span>' +
-                    '<select id="select-category">' +
-                        '<option value="default"></option>' +
-                    '</select>' +
-                '</div>' +
-            '</div>' +
-        '</div>';
+        `<div id="articles"></div>
+         <div id="sources">
+             <div id="sources-box">
+                 <div id="shown-sources"></div>
+                 <div id="scroll">
+                     <div id="scroll-up">&#9651;</div>
+                     <div id="scroll-down">&#9651;</div>
+                 </div>
+             </div>
+             <div id="filter">
+                 <div>filter sources</div>
+                 <div>
+                     <span>Country:</span>
+                     <select id="select-country">
+                         <option value="default"></option>
+                     </select>
+                 </div>
+                 <div>
+                     <span>Language:</span>
+                     <select id="select-language">
+                         <option value="default"></option>
+                     </select>
+                 </div>
+                 <div>
+                     <span>Category:</span>
+                     <select id="select-category">
+                         <option value="default"></option>
+                     </select>
+                 </div>
+             </div>
+         </div>`;
 
     require.ensure([], function(require) {
         let module = require('./news/sources.js'),
