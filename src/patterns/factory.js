@@ -1,61 +1,25 @@
-function image(attributes) {
-    let img = '<img';
-
-    for (let attr in attributes) {
-        let value = attributes[attr];
-        if (value instanceof Array)
-            value = value.join(' ');
-        img += ` ${attr}="${value}"`;
-    }
-
-    return `${img}/>`;
-}
-
-function div(attributes, body) {
-    let div = '<div';
-
-    for (let attr in attributes) {
-        let value = attributes[attr];
-        if (value instanceof Array)
-            value = value.join(' ');
-        div += ` ${attr}="${value}"`;
-    }
-
-    if (body instanceof Array)
-        body = body.join('');
-
-    return `${div}>${body}</div>`;
-
-}
-
-function link(attributes, body) {
-    let link = '<a';
-
-    for (let attr in attributes) {
-        let value = attributes[attr];
-        if (value instanceof Array)
-            value = value.join(' ');
-        link += ` ${attr}="${value}"`;
-    }
-
-    body = body || '';
-
-    if (body instanceof Array)
-        body = body.join('');
-
-    return `${link}>${body}</a>`;
-}
+import {BoxDecorator, ImageDecorator, LinkDecorator, Render} from "./decorator";
 
 export function htmlElement(type, attr, body) {
+    const render = new Render(attr, body);
+    let obj;
+
     switch (type) {
         case 'div':
         case 'block':
-            return div(attr, body);
+            obj = new BoxDecorator(render);
+            break;
         case 'img':
         case 'image':
-            return image(attr);
+            obj = new ImageDecorator(render);
+            break;
         case 'a':
         case 'link':
-            return link(attr, body);
+            obj = new LinkDecorator(render);
+            break;
+        default:
+            obj = new BoxDecorator(render);
     }
+
+    return obj.render();
 }
