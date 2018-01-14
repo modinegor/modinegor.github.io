@@ -48,8 +48,8 @@ function showNewsPage() {
          </div>`;
 
     require.ensure([], function(require) {
-        let module = require('./news/sources.js'),
-            errors = require('./news/errors.js');
+        let module = require('./sources/main.js'),
+            errors = require('./errors.js');
 
         require('../css/news/main.sass');
         require('../css/news/sources.sass');
