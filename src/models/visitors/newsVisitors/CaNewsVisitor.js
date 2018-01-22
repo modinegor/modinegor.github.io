@@ -9,4 +9,6 @@ class CaNewsVisitor extends BaseNewsConverter {
     }
 }
 
-export const CaNewsConverter = new LoggingConvert(new CaNewsVisitor());
+const CaNewsConverter = new LoggingConvert(new CaNewsVisitor());
+
+export default CaNewsConverter;

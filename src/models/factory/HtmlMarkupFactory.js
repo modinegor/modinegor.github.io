@@ -27,4 +27,6 @@ class HtmlMarkupFactory extends MarkupFactory {
     }
 }
 
-export const HtmlMarkupStrategy = new HtmlMarkupFactory();
+const HtmlMarkupStrategy = new HtmlMarkupFactory();
+
+export default HtmlMarkupStrategy;

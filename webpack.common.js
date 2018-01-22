@@ -21,7 +21,8 @@ module.exports = {
                         ["transform-es2015-for-of", {
                             "loose": true
                         }],
-                        "es6-promise"]
+                        "es6-promise",
+                        "transform-object-rest-spread"]
                 }
             }
         }, {

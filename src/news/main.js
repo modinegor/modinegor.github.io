@@ -4,10 +4,14 @@ import {EnNewsConverter} from "../models/visitors/newsVisitors/EnNewsVisitor";
 import {RuNewsConverter} from "../models/visitors/newsVisitors/RuNewsVisitor";
 import {CaNewsConverter} from "../models/visitors/newsVisitors/CaNewsVisitor";
 import Article from "./article";
+import store from "../redux/store";
 
 
-export function showArticles(event) {
-    fetch(`https://newsapi.org/v2/top-headlines?sources=${event.target.id}&apiKey=${apikey}`, {mode: 'cors', method: 'GET'})
+const render = () => {
+    const state = store.getState();
+    const source_id = state.sources.source_id;
+
+    fetch(`https://newsapi.org/v2/top-headlines?sources=${source_id}&apiKey=${apikey}`, {mode: 'cors', method: 'GET'})
         .then(response => response.json(),
             err => Error.show(`Error: ${err}`))
         .then((data) => {
@@ -25,4 +29,4 @@ export function showArticles(event) {
                 articles_div.appendChild(article.getHtmlElement());
             }
         });
-}
+};

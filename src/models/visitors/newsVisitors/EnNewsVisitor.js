@@ -9,4 +9,6 @@ class EnNewsVisitor extends BaseNewsConverter {
     }
 }
 
-export const EnNewsConverter = new LoggingConvert(new EnNewsVisitor());
+const EnNewsConverter = new LoggingConvert(new EnNewsVisitor());
+
+export default EnNewsConverter;

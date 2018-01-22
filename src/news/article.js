@@ -1,4 +1,4 @@
-import {HtmlMarkupStrategy} from "../models/factory/HtmlMarkupFactory";
+import HtmlMarkupStrategy from "../models/factory/HtmlMarkupFactory";
 
 export default class Article {
     constructor(obj) {

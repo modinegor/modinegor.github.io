@@ -1,11 +1,11 @@
-import {HtmlMarkupStrategy} from "../models/factory/HtmlMarkupFactory";
-import {showArticles} from "../news/main";
+import HtmlMarkupStrategy from "../models/factory/HtmlMarkupFactory";
+import store from "../redux/store"
+import actions from "../redux/actions";
 
 
 export default class Source {
     constructor(obj) {
         ({
-            description: this.description,
             id: this.id,
             name: this.name,
             url: this.url,
@@ -15,13 +15,16 @@ export default class Source {
 
     getHtmlElement() {
         const div = document.createElement('div');
-        let content = '';
 
         div.className = 'source-item';
-        content = this.logo + this.markupStrategy.create('div', {}, [this.title, this.button]);
 
-        div.innerHTML = content;
-        div.getElementsByClassName("read-source-button")[0].addEventListener('click', showArticles);
+        div.innerHTML = this.logo + this.markupStrategy.create('div', {}, [this.title, this.button]);
+        div.getElementsByClassName("read-source-button")[0].addEventListener('click', () => {
+            store.dispatch({
+                type: actions.news.GET_SOURCE_NEWS,
+                source_id: this.id
+            });
+        });
 
         return div;
     }
@@ -29,8 +32,7 @@ export default class Source {
     get logo() {
         return this.markupStrategy.create('image',
             {src: `https://icons.better-idea.org/icon?url=${this.url}&size=50`,
-                class: 'source-logo',
-                title: this.description});
+                class: 'source-logo'});
     }
 
     get button() {

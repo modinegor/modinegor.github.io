@@ -9,4 +9,6 @@ class RuNewsVisitor extends BaseNewsConverter{
     }
 }
 
-export const RuNewsConverter = new LoggingConvert(new RuNewsVisitor());
+const RuNewsConverter = new LoggingConvert(new RuNewsVisitor());
+
+export default RuNewsConverter;

@@ -48,18 +48,13 @@ function showNewsPage() {
          </div>`;
 
     require.ensure([], function(require) {
-        let module = require('./sources/main.js'),
-            errors = require('./errors.js');
+        let module = require('./news_page.js');
 
         require('../css/news/main.sass');
         require('../css/news/sources.sass');
         require('../css/news/articles.sass');
         require('../css/news/media/media_max_width_1200.sass');
 
-        module.showSources();
-        errors.Error.show("Chose source to see the news");
-
-        document.getElementById('scroll-up').addEventListener('click', module.scrollSources);
-        document.getElementById('scroll-down').addEventListener('click', module.scrollSources);
+        module.initPage();
     });
 }
