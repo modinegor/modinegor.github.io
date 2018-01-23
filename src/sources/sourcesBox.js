@@ -1,12 +1,14 @@
-import {is_equal, shuffle_array} from "../helpers/helpers";
+import {areEqual, shuffle_array} from "../helpers/helpers";
 import Source from "./source";
 import {apikey} from "../helpers/const";
-import store from "../redux/store";
 import actions from "../redux/actions";
 import statuses from "../redux/statuses";
+import createStore from "../redux/store";
 
 
 let instance;
+const store = new createStore();
+
 
 export default class SourceBox {
     constructor() {
@@ -65,7 +67,7 @@ export default class SourceBox {
     change() {
         const state = store.getState().sources;
 
-        if (is_equal(this.shown, state.shown))
+        if (areEqual(this.shown, state.shown))
             return;
 
         const children = this.div.childNodes;

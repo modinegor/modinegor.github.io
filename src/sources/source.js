@@ -1,6 +1,9 @@
 import HtmlMarkupStrategy from "../models/factory/HtmlMarkupFactory";
-import store from "../redux/store"
 import actions from "../redux/actions";
+import createStore from "../redux/store";
+
+
+const store = new createStore();
 
 
 export default class Source {

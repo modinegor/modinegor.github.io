@@ -1,12 +1,19 @@
 import Article from "./article";
 import {apikey} from "../helpers/const";
-import store from "../redux/store";
-import RuNewsConverter from "../models/visitors/newsVisitors/RuNewsVisitor";
-import CaNewsConverter from "../models/visitors/newsVisitors/CaNewsVisitor";
-import EnNewsConverter from "../models/visitors/newsVisitors/EnNewsVisitor";
 import actions from "../redux/actions";
 import statuses from "../redux/statuses";
+import {LoggingConvert} from "../models/visitors/newsVisitors/BaseNewsVisitor";
+import CaNewsVisitor from "../models/visitors/newsVisitors/CaNewsVisitor";
+import RuNewsVisitor from "../models/visitors/newsVisitors/RuNewsVisitor";
+import EnNewsVisitor from "../models/visitors/newsVisitors/EnNewsVisitor";
+import createStore from "../redux/store";
 
+
+const CaNewsConverter = new LoggingConvert(new CaNewsVisitor());
+const RuNewsConverter = new LoggingConvert(new RuNewsVisitor());
+const EnNewsConverter = new LoggingConvert(new EnNewsVisitor());
+
+const store = new createStore();
 
 let instance;
 
@@ -18,6 +25,8 @@ export default class NewsBox {
         this.div = document.getElementById('articles');
         this.source_id = undefined;
         this.status = statuses.INIT;
+
+        this.div.innerHTML = '<div id="info-message">Choose source to see the news</div>';
 
         instance = this;
     }

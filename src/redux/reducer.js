@@ -1,5 +1,6 @@
 import actions from "../redux/actions";
 import statuses from "./statuses";
+import {deepCopy} from "../helpers/helpers";
 
 
 const defaultState = {
@@ -18,7 +19,12 @@ const defaultState = {
 };
 
 const reducer = (state = defaultState, action) => {
-    let new_state = {...state, error: null};
+    let new_state = {news: {...state.news, data: [...state.news.data]},
+                     sources: {...state.sources, filter: {...state.sources.filter}, data: [...state.sources.data]},
+                     error: null};
+
+    if (!action)
+        return new_state;
 
     switch (action.type) {
         case actions.errors.COMMON_ERROR:

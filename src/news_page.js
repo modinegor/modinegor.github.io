@@ -1,10 +1,11 @@
-import SourceBox from "./sources/render";
-import NewsBox from "./news/render";
-import store from "./redux/store";
+import SourceBox from "./sources/sourcesBox";
+import NewsBox from "./news/newsBox";
 import actions from "./redux/actions";
+import createStore from "./redux/store";
 
 
 export const initPage = () => {
+    const store = new createStore();
     const sourceBox = new SourceBox();
     const newsBox = new NewsBox();
 
@@ -14,7 +15,6 @@ export const initPage = () => {
     store.subscribe(() => sourceBox.show());
     store.subscribe(() => sourceBox.change());
 
-    store.dispatch({type: actions.errors.COMMON_ERROR, message: "Choose source to see the news"});
     store.dispatch({type: actions.sources.GET_SOURCES_LIST});
 
     document.getElementById('scroll-up').addEventListener('click', () => store.dispatch({

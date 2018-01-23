@@ -1,13 +1,13 @@
-export function shuffle_array(array) {
+export const shuffle_array = (array) => {
     for (let i = 1; i < array.length; i++) {
         let rand_i = Math.floor(Math.random() * (i + 1));
 
         [array[i], array[rand_i]] = [array[rand_i], array[i]];
     }
     return [...array];
-}
+};
 
-export function is_equal(array1, array2) {
+export const areEqual = (array1, array2) => {
     if (array1.length !== array2.length)
         return false;
     for (let i in array1)
@@ -15,4 +15,4 @@ export function is_equal(array1, array2) {
             return false;
 
     return true;
-}
+};

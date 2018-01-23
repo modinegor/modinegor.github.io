@@ -1,14 +1,10 @@
-import {BaseNewsConverter, LoggingConvert} from "./BaseNewsVisitor";
+import {BaseNewsConverter} from "./BaseNewsVisitor";
 
 
-class EnNewsVisitor extends BaseNewsConverter {
+export default class EnNewsVisitor extends BaseNewsConverter {
     constructor() {
         super();
         this.regexp = /\s(en|En)\s/;
         this.lang = 'EN';
     }
 }
-
-const EnNewsConverter = new LoggingConvert(new EnNewsVisitor());
-
-export default EnNewsConverter;

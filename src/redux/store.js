@@ -1,26 +1,29 @@
 import reducer from "./reducer";
 
 
-const createStore = (reducer) => {
-    let state;
-    let listeners = [];
+let instance;
 
-    const getState = () => state;
+export default class createStore {
+    constructor() {
+        if (instance)
+            return instance;
 
-    const dispatch = (action) => {
-        state = reducer(state, action);
-        listeners.forEach(listener => listener());
+        this.state = reducer();
+        this.listeners = [];
+
+        instance = this;
+    }
+
+    getState() {
+        return this.state;
+    }
+
+    dispatch(action) {
+        this.state = reducer(this.state, action);
+        this.listeners.forEach(listener => listener());
     };
 
-    const subscribe = (listener) => {
-        listeners.push(listener);
+    subscribe(listener) {
+        this.listeners.push(listener);
     };
-
-    dispatch({});
-
-    return { getState, dispatch, subscribe };
-};
-
-const store = createStore(reducer);
-
-export default store;
+}
