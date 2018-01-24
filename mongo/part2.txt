@@ -1,0 +1,72 @@
+1. Airline collection
+
+1.1
+> db.airlines.aggregate([{$group: {_id: "$class", total: {$sum: 1}}}, {$project: {_id: 0, total: 1, class: "$_id"}}])
+{ "total" : 140343, "class" : "F" }
+{ "total" : 23123, "class" : "L" }
+{ "total" : 5683, "class" : "P" }
+{ "total" : 17499, "class" : "G" }
+
+1.2
+match = {$match: {destCountry: {$ne: "United States"}}}
+group = {$group: {_id: {country: "$destCountry", city: "$destCity"}, avgPassengers: {$avg: "$passengers"}}}
+project = {$project: {_id: 0, avgPassengers: 1, city: "$_id.city"}}
+
+> db.airlines.aggregate([match, group, {$sort: {avgPassengers: -1}}, {$limit: 3}, project])
+{ "avgPassengers" : 8052.380952380952, "city" : "Abu Dhabi, United Arab Emirates" }
+{ "avgPassengers" : 7176.596638655462, "city" : "Dubai, United Arab Emirates" }
+{ "avgPassengers" : 7103.333333333333, "city" : "Guangzhou, China" }
+
+1.3
+> db.airlines.aggregate([{$match: {destCountry: "Latvia"}}, {$group: {_id: "$destCountry", carriers: {$addToSet: "$carrier"}}}])
+{ "_id" : "Latvia", "carriers" : [ "Uzbekistan Airways", "Blue Jet SP Z o o", "JetClub AG" ] }
+
+1.4
+match = {$match: {originCountry: "United States", destCountry: {$in: ["Greece", "Italy", "Spain"]}}}
+group = {$group: {_id: "$carrier", total: {$sum: "$passengers"}}}
+
+> db.airlines.aggregate([match, group, {$sort: {total: -1}}, {$limit: 10}, {$skip: 3}])
+{ "_id" : "Compagnia Aerea Italiana", "total" : 280256 }
+{ "_id" : "United Air Lines Inc.", "total" : 229936 }
+{ "_id" : "Emirates", "total" : 100903 }
+{ "_id" : "Air Europa", "total" : 94968 }
+{ "_id" : "Meridiana S.p.A", "total" : 20308 }
+{ "_id" : "Norwegian Air Shuttle ASA", "total" : 13344 }
+{ "_id" : "VistaJet Limited", "total" : 183 }
+
+1.5
+match = {$match: {originCountry: "United States"}}
+group1 = {$group: {_id: {city: "$originCity", state: "$originState"}, totalPassengers: {$sum: "$passengers"}}}
+group2 = {$group: {_id: {state: "$_id.state"}, totalPassengers: {$first: "$totalPassengers"}, city: {$first: "$_id.city"}}}
+project = {$project: {_id: 0, totalPassengers: "$totalPassengers", location: {state: "$_id.state", city: "$city"}}}
+
+> db.airlines.aggregate([match, group1, {$sort: {totalPassengers: -1}}, group2, {$sort: {"_id.state": 1}}, {$limit: 5}, project])
+{ "totalPassengers" : 760120, "location" : { "state" : "Alabama", "city" : "Birmingham, AL" } }
+{ "totalPassengers" : 1472404, "location" : { "state" : "Alaska", "city" : "Anchorage, AK" } }
+{ "totalPassengers" : 13152753, "location" : { "state" : "Arizona", "city" : "Phoenix, AZ" } }
+{ "totalPassengers" : 571452, "location" : { "state" : "Arkansas", "city" : "Little Rock, AR" } }
+{ "totalPassengers" : 23701556, "location" : { "state" : "California", "city" : "Los Angeles, CA" } }
+
+
+2 Enron collection
+
+solution according to success criteria in home tasks
+
+project1 = {$project: {from: "$headers.From", to: "$headers.To"}}
+unwind_to = {$unwind: "$to"}
+group1 = {$group: {_id: "$_id", from: {$first: "$from"}, to: {$addToSet: "$to"}}}
+group2 = {$group: {_id: {from: "$from", to: "$to"}, total: {$sum: 1}}}
+project2 = {$project: {_id: 0, from: "$_id.from", to: "$_id.to", total: "$total"}}
+
+> db.enron.aggregate([project1, unwind_to, group1, unwind_to, group2, {$sort: {total: -1}}, {$limit: 1}, project2])
+{ "from" : "susan.mara@enron.com", "to" : "jeff.dasovich@enron.com", "total" : 750 }
+
+
+Problem there that direction of emails is not specified and for me pair means both direction. My solution:
+
+project3 = {$project: {_id: 0, pair: {$cond: {if: {$lt: ["$from", "$to"]}, then: ["$from", "$to"], else: ["$to", "$from"]}}}}
+group3 = {$group: {_id: "$pair", total: {$sum: 1}}}
+project4 = {$project: {_id: 0, person1: {$arrayElemAt: ["$_id", 0]}, person2: {$arrayElemAt: ["$_id", 1]}, total: "$total"}}
+
+> db.enron.aggregate([project1, unwind_to, group1, unwind_to, project3, group3, {$sort: {total: -1}}, {$limit: 1}, project4])
+{ "person1" : "james.steffes@enron.com", "person2" : "susan.mara@enron.com", "total" : 900 }
