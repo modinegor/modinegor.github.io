@@ -2,7 +2,7 @@ import {BoxHtmlRender, HtmlRenderer, ImageHtmlRender, LinkHtmlRender} from "../r
 import MarkupFactory from "./MarkupFactory";
 
 
-class HtmlMarkupFactory extends MarkupFactory {
+export default class HtmlMarkupFactory extends MarkupFactory {
     create(type, attr, body) {
         let obj;
 
@@ -26,7 +26,3 @@ class HtmlMarkupFactory extends MarkupFactory {
         return obj.render(attr, body);
     }
 }
-
-const HtmlMarkupStrategy = new HtmlMarkupFactory();
-
-export default HtmlMarkupStrategy;
