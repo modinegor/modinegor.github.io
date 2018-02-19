@@ -1,0 +1,23 @@
+html
+    head
+        title My Blog
+        link(rel='stylesheet', type='text/css', href='/css/main.css')
+        script(type='text/javascript', src='/dist/script.js', defer='defer')
+    body
+        div#adding
+            h2 Add new record
+            div
+                input#blog-title
+            div
+                textarea#blog-body
+            div
+                input#post-new-blog(value='Post', type='button')
+        div#reading
+            h2 Select record to read:
+            if blogs
+                for record in blogs
+                    div
+                        time= record.date
+                        a(href='api/blogs/' + record._id)= record.title
+            else
+                div#empty-blog There is no records in the blog yet

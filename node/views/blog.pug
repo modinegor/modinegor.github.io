@@ -1,0 +1,15 @@
+html
+    head
+        title= title
+        link(rel='stylesheet', type='text/css', href='/css/main.css')
+        script(type='text/javascript', src='/dist/script.js', defer='defer')
+    body
+        div#blog-reading(data-id=_id)
+            div#title-div
+                h2= title
+            div#body-div
+                span= body
+        div#controls
+            input(type='button', value='edit')
+            input(type='button', value='delete')
+            input(type='button', value='save', style='visibility: hidden;')

@@ -1,0 +1,40 @@
+textarea {
+    width: 95%;
+    height: 200px;
+    margin-bottom: 5px;
+    resize: none;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+#blog-title {
+    width: 35%;
+    margin-bottom: 5px;
+}
+
+#post-new-blog {
+    margin-left: 75%;
+    font-weight: bolder;
+    padding: 2px 20px;
+}
+
+#reading div {
+    margin-left: 15px;
+    margin-top: 2px;
+}
+
+#reading time {
+    margin-right: 10px;
+}
+
+#controls {
+    margin-top: 10px;
+}
+#controls input {
+    width: 100px;
+    margin-left: 20px;
+}
+
+#blog-reading span {
+    white-space: pre-wrap;
+}

@@ -84,3 +84,20 @@ Example of routes:
 *Advanced:
 Use http://nodemon.io/ for development.
 Add simple logging mechanism to write URL and Date info to file per each request (try https://github.com/winstonjs/winston or any other library).
+
+
+### Week 8
+
+Part 2:
+1.	Install and setup mongoose.
+2.	Create Mongoose scheme for blog article model.
+3.	Replace "console logs"/stubs from part 1 to real communication with database.
+•	Find all blogs
+•	Find blog by ID
+•	Insert blog
+•	Update blog record
+•	Delete blog from DB
+4.	Implement error handling middleware (examples here) which will send an error without stack trace to client.
+
+*Advanced:
+Describe mongoose scheme for User model. Implement user registration, add authorization and authentication using http://www.passportjs.org/ (any strategy) for accessing blog article.
