@@ -3,11 +3,11 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 
 module.exports = {
-    entry: './node/static/js/main.js',
+    entry: './static/js/main.js',
     output: {
         filename: 'script.js',
         path: path.resolve(__dirname, 'static', 'dist'),
-        publicPath: './node/'
+        publicPath: './'
     },
 
     module: {
