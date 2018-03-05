@@ -1,30 +1,46 @@
 const path = require('path');
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 
 module.exports = {
-    entry: './react/src/index.js',
+    entry: {
+        main: ["react-hot-loader/patch", "./src/index.js"]
+    },
     output: {
-        filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: './react/'
+        filename: '[name].bundle.js',
+        publicPath: './'
     },
 
     module: {
-        rules: [{
-            test: '/\.(js|jsx)$/',
-            exclude: '/node_modules/',
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: ['env', 'react'],
-                },
+        rules: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env', 'react'],
+                        plugins: [
+                            'react-hot-loader/babel',
+                            'transform-class-properties',
+                            'transform-object-rest-spread'
+                        ]
+                    },
+                }
+            }, {
+                test: /\.css/,
+                use: ['style-loader', 'css-loader']
             }
-        }]
+        ]
     },
 
-    resolve: {
-        extensions: ['.js', '.jsx'],
+    devServer: {
+        host: 'localhost',
+        port: 5001,
+        hot: true,
+        disableHostCheck: true
     },
 
     watch: true,
@@ -34,6 +50,8 @@ module.exports = {
     },
 
     plugins: [
-        new CleanWebpackPlugin(['dist'], {'dry': true})
+        new CleanWebpackPlugin(['dist'], {'dry': true}),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ]
 };
