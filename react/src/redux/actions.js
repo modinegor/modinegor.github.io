@@ -9,4 +9,6 @@ const actions = {
     }
 };
 
+Object.freeze(actions);
+
 export default actions;

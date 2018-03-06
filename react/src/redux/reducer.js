@@ -38,7 +38,7 @@ const reducer = (state = defaultState, action) => {
             id += 1;
             break;
         case actions.posts.POST_FILTER_USER:
-            if (!new_state.filtered)
+            if (!state.filtered)
                 new_state.filtered = action.user;
             else
                 new_state.filtered = false;

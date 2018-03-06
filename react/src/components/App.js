@@ -3,12 +3,11 @@ import Store from "../redux/store"
 import Main from "./main/Main"
 import UserPanel from "./user/UserPanel";
 import actions from "../redux/actions";
-import {hot} from "react-hot-loader";
 
 
 const store = new Store();
 
-class App extends Component {
+export default class App extends Component {
     constructor(props) {
         super(props);
 
@@ -54,5 +53,3 @@ class App extends Component {
         this.setState({filtered: store.getState().filtered})
     }
 }
-
-export default hot(module)(App);

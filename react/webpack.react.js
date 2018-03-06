@@ -53,5 +53,10 @@ module.exports = {
         new CleanWebpackPlugin(['dist'], {'dry': true}),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
-    ]
+    ],
+
+    node: {
+        net: 'empty',
+        fs: 'empty'
+    }
 };

@@ -5,11 +5,13 @@
   "repository": "https://github.com/modinegor/modinegor.github.io",
   "scripts": {
     "build": "webpack --config webpack.react.js",
-    "start": "webpack-dev-server --open --config webpack.react.js"
+    "start": "webpack-dev-server --open --config webpack.react.js",
+    "server": "webpack --config webpack.server.js && node ./dist/server.js"
   },
   "dependencies": {
     "bootstrap": "^4.0.0",
     "css-loader": "^0.28.10",
+    "express": "^4.16.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
