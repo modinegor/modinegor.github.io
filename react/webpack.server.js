@@ -2,7 +2,7 @@ const path = require('path');
 
 
 module.exports = {
-    entry: "./src/server/index.js",
+    entry: "./server/index.js",
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'server.js',
@@ -20,7 +20,8 @@ module.exports = {
                         presets: ['env', 'react'],
                         plugins: [
                             'transform-class-properties',
-                            'transform-object-rest-spread'
+                            'transform-object-rest-spread',
+                            'transform-decorators-legacy'
                         ]
                     },
                 }

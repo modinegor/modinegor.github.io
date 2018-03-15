@@ -1,7 +1,10 @@
 import React from 'react';
 import {render} from "react-dom";
-import App from "./components/App";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./css/common.css"
+import App from "./components/App";
 
 
-render(<App />, document.getElementById('app'));
+render (
+    <App />, document.getElementById('app')
+);

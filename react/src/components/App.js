@@ -1,55 +1,34 @@
-import React, {Component} from "react";
-import Store from "../redux/store"
-import Main from "./main/Main"
-import UserPanel from "./user/UserPanel";
-import actions from "../redux/actions";
+import React from 'react';
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {Provider} from "react-redux";
+import {createStore} from "redux";
+import Login from "./Login";
+import Panel from "./Panel";
+import Blog from "./Blog";
+import NewUser from "./NewUser";
+import blogApp from "../reducers";
 
 
-const store = new Store();
+const store = createStore(blogApp);
 
-export default class App extends Component {
-    constructor(props) {
-        super(props);
-
-        store.subscribe(this.handleLogin,   actions.user.USER_LOGIN);
-        store.subscribe(this.handleLogin,   actions.user.USER_SIGN_OUT);
-        store.subscribe(this.handleAddPost, actions.posts.POST_ADD_NEW);
-        store.subscribe(this.handleFilter,  actions.posts.POST_FILTER_USER);
-    }
-
-    state = store.getState();
-
-    render() {
-        let posts = this.state.posts;
-
-        if (this.state.filtered) {
-            posts = posts.filter(post => {
-                return post.user === this.state.filtered;
-            })
-        }
-
-        return (
-            <div className="container">
-                <div className='jumbotron'>
-                    <h1 className='display-4'>React Blog</h1>
+const App = () => {
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <div >
+                    <Panel />
+                    <div className='container' id='blog-body'>
+                        <Switch>
+                            <Route exact path='/' component={Blog} />
+                            <Route path='/blog' component={Blog} />
+                            <Route path='/login' component={Login} />
+                            <Route path='/singup' component={NewUser} />
+                        </Switch>
+                    </div>
                 </div>
-                <div>
-                    <Main posts={posts} user={this.state.user} filtered={this.state.filtered}/>
-                    <UserPanel user={this.state.user}/>
-                </div>
-            </div>
-        )
-    }
+            </BrowserRouter>
+        </Provider>
+    )
+};
 
-    handleLogin = () => {
-        this.setState({user: store.getState().user})
-    };
-
-    handleAddPost = () => {
-        this.setState({posts: store.getState().posts})
-    };
-
-    handleFilter = () => {
-        this.setState({filtered: store.getState().filtered})
-    }
-}
+export default App

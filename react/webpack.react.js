@@ -4,9 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 
 module.exports = {
-    entry: {
-        main: ["react-hot-loader/patch", "./src/index.js"]
-    },
+    entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
@@ -23,9 +21,9 @@ module.exports = {
                     options: {
                         presets: ['env', 'react'],
                         plugins: [
-                            'react-hot-loader/babel',
                             'transform-class-properties',
-                            'transform-object-rest-spread'
+                            'transform-object-rest-spread',
+                            'transform-decorators-legacy'
                         ]
                     },
                 }

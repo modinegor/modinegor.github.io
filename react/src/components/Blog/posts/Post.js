@@ -1,16 +1,14 @@
 import React, {Component} from 'react'
-import actions from "../../../redux/actions";
-import Store from "../../../redux/store";
+import PropTypes from 'prop-types';
 
 
-const store = new Store();
-
-export default class Post extends Component {
+class Post extends Component {
     render() {
         return (
             <div className='card'>
                 <div className='card-header'>
-                    <span style={{cursor: 'pointer'}} onClick={this.handleFilter} title={`Filter by user ${this.props.post.user}`}>
+                    <span className='pointer-cursor'
+                          title={`Filter by user ${this.props.post.user}`}>
                         {this.props.post.user}
                     </span>
                     <span> @ </span>
@@ -20,8 +18,15 @@ export default class Post extends Component {
             </div>
         )
     }
-
-    handleFilter = ({target}) => {
-        store.dispatch({type: actions.posts.POST_FILTER_USER, user: target.innerText})
-    };
 }
+
+Post.propTypes = {
+    post: PropTypes.shape({
+        _id: PropTypes.number.isRequired,
+        date: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired,
+        user: PropTypes.string.isRequired
+    })
+};
+
+export default Post;
