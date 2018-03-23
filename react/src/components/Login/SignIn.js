@@ -17,11 +17,11 @@ class SignIn extends Component {
     state = {
         password: '',
         username: '',
-        wrong: false
+        error: null
     };
 
     render() {
-        let wrong = this.state.wrong ? <div className='text-danger'>Username or Password is wrong</div> : null;
+        let error = this.state.error ? <div className='text-danger'>{this.state.error}</div> : null;
 
         return (
             <div className='card bg-light'>
@@ -50,7 +50,7 @@ class SignIn extends Component {
                             className="btn btn-primary"
                             onClick={this.handleSingIn}>Sign In</button>
                 </div>
-                {wrong}
+                {error}
             </div>
         )
     }
@@ -66,26 +66,32 @@ class SignIn extends Component {
     handleSingIn = () => {
         if (this.state.username !== '') {
 
-            fetch('http://localhost:5002/api/user/login', {
+            fetch('/api/user/login', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
                 method: 'POST',
-                username: this.state.username,
                 body: JSON.stringify(this.state)
             })
                 .then(response => {
-                    console.log(response);
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
                     return response.json()
                 })
                 .then(({username}) => {
-                    // this.setState({
-                    //     wrong: !user
-                    // });
-                    //
-                    // if (user !== null) {
-                    //     this.props.signInUser(user)
-                    // }
+                    this.setState({
+                        error: null,
+                        username: '',
+                        password: ''
+                    });
+                    this.props.signInUser(username);
                 })
-                .catch(err => {
-                    console.log(err);
+                .catch(() => {
+                    this.setState({
+                        error: 'Wrong username or password'
+                    })
                 })
         }
     }

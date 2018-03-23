@@ -57,7 +57,22 @@ class User extends Component {
             showLogout: false
         });
 
-        this.props.userLogout();
+        fetch('/api/user/logout', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'GET',
+        })
+            .then(response => {
+                if (response.ok)
+                    this.props.userLogout();
+                else
+                    throw Error(response.statusText);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     };
 }
 

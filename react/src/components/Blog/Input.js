@@ -65,7 +65,7 @@ class Input extends Component {
         let {user} = this.props,
             text = this.state.value;
 
-        fetch('http://localhost:5002/api/blog', {
+        fetch('/api/blog', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

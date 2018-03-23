@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => {
 @connect(mapStateToProps, mapDispatchToProps)
 class Panel extends Component {
     componentWillMount() {
-        fetch(`http://localhost:5002/api/blog/`, {
+        fetch(`/api/blog/`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

@@ -1,7 +1,7 @@
 const mongoose = require('../dataservice/connection');
+const passportLocalMongoose = require('passport-local-mongoose');
 const Schema = require('mongoose').Schema;
 const collection = require('./collections').USER_COLLECTION;
-const passportLocalMongoose = require('passport-local-mongoose');
 
 
 const userSchema = new Schema({
@@ -9,6 +9,7 @@ const userSchema = new Schema({
     email: String,
     password: String
 });
+
 userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model(collection, userSchema);

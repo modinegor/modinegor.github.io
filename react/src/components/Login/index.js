@@ -12,10 +12,12 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class Login extends Component {
-    render() {
+    componentDidUpdate() {
         if (this.props.user !== null)
-            this.props.history.redirect('/blogs');
+            this.props.history.push('/blog');
+    }
 
+    render() {
         return (
             <div className='container'>
                 <div className="row">

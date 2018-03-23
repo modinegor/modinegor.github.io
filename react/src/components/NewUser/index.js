@@ -26,10 +26,12 @@ export default class NewUser extends Component {
         error: null,
     };
 
-    render() {
+    componentDidUpdate() {
         if (this.props.user !== null)
-            this.props.history.push('/blogs');
+            this.props.history.push('/blog');
+    }
 
+    render() {
         let error = this.state.error !== null ? <div className='text-danger'>{this.state.error}</div> : null;
 
         return (
@@ -97,7 +99,14 @@ export default class NewUser extends Component {
     };
 
     handleSingUp = () => {
-        fetch('http://localhost:5002/api/user/register', {
+        if (this.state.username === '')
+            return;
+        if (this.state.email === '')
+            return;
+        if (this.state.password === '')
+            return;
+
+        fetch('/api/user/register', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -106,12 +115,12 @@ export default class NewUser extends Component {
             body: JSON.stringify(this.state)
         })
             .then(response => response.json())
-            .then(({username, error}) => {
+            .then(({error, username}) => {
                 this.setState({
                     error: error
                 });
 
-                if (error !== null) {
+                if (error === null) {
                     this.setState({
                         username: '',
                         password: '',
