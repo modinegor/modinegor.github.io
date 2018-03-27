@@ -2,7 +2,7 @@
 
 ## Hometasks:
 
-### Week 1 (ES2015)
+### ES2015
 
 1. Go to https://newsapi.org/
 2. Press ‘Get Api Key’ on the right
@@ -17,7 +17,7 @@
 11. You're not allowed to use any framework
 12. Add attribution link, remember, you promised!
 
-### Week 2 (babel)
+### Babel
 
 For 3 stars:
 Use babel for your solution from week1.
@@ -32,7 +32,7 @@ For 5 stars:
 Write a babel plugin. Please, negotiate with your mentor what exactly will you do; you're free to do anything (if this anything is approved by him :)
 You can use https://github.com/RReverser/babel-plugin-hello-world as a starting point.
 
-### Week 3 (webpack)
+### Webpack
 
 Improve your application for Webpack:
 (1-3) stars
@@ -53,7 +53,7 @@ loader should be chainable
 applicable for /\.json/
 remove all number attributes in source
 
-### Week 4 (design patterns)
+### Design patterns
 
 5 stars => All for 3 stars!!!!! + Implement architectural pattern Flux (Redux implementation) in the app;
 
@@ -65,7 +65,7 @@ remove all number attributes in source
 
 1 star => Implement two creational patterns;
 
-### Week 7
+### Node.js
 
 Implement blog system web-server based on Node.js + express framework.  *To get max point 5 implement advanced part.
 
@@ -86,7 +86,7 @@ Use http://nodemon.io/ for development.
 Add simple logging mechanism to write URL and Date info to file per each request (try https://github.com/winstonjs/winston or any other library).
 
 
-### Week 8
+### node + mongo
 
 Part 2:
 1.	Install and setup mongoose.
@@ -103,7 +103,7 @@ Part 2:
 Describe mongoose scheme for User model. Implement user registration, add authorization and authentication using http://www.passportjs.org/ (any strategy) for accessing blog article.
 
 
-### Week 9
+### React
 
 Create simple client blog application (e.g. like Twitter). It should have the ability to add/delete post, show all posts and filter them by authors.
 
@@ -115,3 +115,35 @@ Task 1:
 5)	Implement Server-Side rendering;
 
 All posts data could be stored in the state of the app, but If this task would be too easy for you, you can connect your application to the Node.js server from the previous task (because this step would be necessary in the second home task).
+
+Task 2:
+1)	Connect your application from the previous tasks to the Node.js server (from the previous Node.js module)
+2)	Add redux and react-router;
+3)	Add registration/authentication functionality.
+4)	Add tests and some performance tweaks;
+5)	Add or update server-side rendering functionality;
+
+
+### Angular
+
+Part 1.
+
+1. Add AngularJS 1.#.# to a project
+2. Add minimum functionality
+    a. Add status(is it done or not) and date creation to todo model
+    b. Create a view displaying two lists of todos: “Done todos” and “New todos”
+    c. Add filtering for todo list on base how old is the todo in days
+3. Add more functionality
+    a. Add validation to the form
+        i. Fields "Text" should be mandatory
+        ii. Create a custom validator that check the minimum length of a todo text: 20 symbols.
+    b. Reuse the form above to edit an article by clicking on article title
+    c. Add sorting by first letter and by date
+4. Add routes and resource
+    a. "Add todo"/"Edit todo" forms should be opened inside different views.
+    b. Make sure that "Add todo"/"Edit todo" views have different routes, i.e.
+        i. /admin/article/<todoId>/edit
+        ii. /admin/article/add
+5. Load todos from external resource
+    c. Use Resource to make requests to a server
+    d. Make todo.json load first todos from the file

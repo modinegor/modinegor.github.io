@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="slidecontainer">
+        <label>Show {{maxDays || 'all'}} day(s)</label>
+        <input type="range" min="0" max="30" ng-model="maxDays" class="slider" />
+    </div>
+    <div>
+        <h5>Tasks ({{tasks.length}})</h5>
+        <div>
+            <h5>Active</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" ng-click="sortToDo('active', 'index')">#</th>
+                        <th scope="col" ng-click="sortToDo('active', 'date.opened')">Created</th>
+                        <th scope="col" ng-click="sortToDo('active', 'title')">ToDo</th>
+                        <th scope="col">Done</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="task in tasks | state:{active:true} | days:maxDays | sort:sortA ">
+                        <th scope="row">{{task.id}}</th>
+                        <td>{{task.opened.str}}</td>
+                        <td>
+                            <a class="badge badge-info" ng-href="#!/todo/admin/{{task.id}}/edit">{{task.title}}</a>
+                        </td>
+                        <td><input type="checkbox" class="form-check-input" ng-click="changeState(task)"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h5>Completed</h5>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col" ng-click="sortToDo('completed', 'index')">#</th>
+                    <th scope="col" ng-click="sortToDo('completed', 'date.opened')">Created</th>
+                    <th scope="col" ng-click="sortToDo('completed', 'title')">ToDo</th>
+                    <th scope="col" ng-click="sortToDo('completed', 'date.closed')">Completed</th>
+                    <th scope="col">Done</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="task in tasks | state:{completed:true} | days:maxDays | sort:sortC">
+                    <th scope="row">{{task.id}}</th>
+                    <td>{{task.opened.str}}</td>
+                    <td>
+                        <del class="badge badge-success" style="cursor: pointer;" title="Delete todo" ng-click="removeToDo(task)">{{task.title}}</del>
+                    </td>
+                    <td>{{task.closed.str}}</td>
+                    <td><input type="checkbox" checked="checked" class="form-check-input" ng-click="changeState(task)"/></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

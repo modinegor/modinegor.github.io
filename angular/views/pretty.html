@@ -1,0 +1,36 @@
+<div id="prettyapp">
+    <header class="header">
+        <!--<h1>todos</h1>-->
+        <input class="new-todo" type="text" placeholder="What needs to be done?" ng-enter="addTask()" ng-model="newTask"/>
+    </header>
+
+    <section class="main" ng-if="task.length !== 0">
+        <input class="toggle-all" type="checkbox"/>
+        <ul class="todo-list">
+            <li ng-repeat="task in tasks | state:filter">
+                <div class="view" ng-class="{'completed': task.completed}">
+                    <input class="toggle" type="checkbox" ng-click="toggleTask(task)"/>
+                    <label>{{task.title}}</label>
+                    <button class="destroy" ng-click="removeTask(task)"></button>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <footer class="footer">
+        <span class="todo-count">{{tasks.length}} item left</span>
+        <ul class="filters">
+            <li>
+                <span class="filter-item" ng-class="{'selected': filter.all}" ng-click="selectAll()">All</span>
+            </li>
+            <li>
+                <span class="filter-item" ng-class="{'selected': filter.active}" ng-click="selectActive()">Active</span>
+            </li>
+            <li>
+                <span class="filter-item" ng-class="{'selected': filter.completed}" ng-click="selectCompleted()">Completed</span>
+            </li>
+        </ul>
+        <button class="clear-completed" ng-click="removeAllCompleted()">Clear completed</button>
+    </footer>
+
+</div>

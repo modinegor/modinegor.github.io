@@ -1,0 +1,27 @@
+[
+  {
+    "title": "ReactJS part2 hometask",
+    "text": "Complete all hometask till 28/02 for 5 stars",
+    "date": "02/27/2018"
+  }, {
+    "title": "Attend webinar on Angular part1",
+    "text": "Date: March 14 Time: 9:00 - 12:00 Trainer: Nikolay Shilin-Terentev",
+    "date": "03/14/2018"
+  }, {
+    "title": "Complete hometask on Angular part1 for 5 stars",
+    "text": "Complete all hometask till 21/03",
+    "date": "03/15/2018"
+  }, {
+    "title": "Attend webinar on angular part2",
+    "text": "Date: March 21 Time: 12:30 - 15:30 Trainer: Nikolay Shilin-Terentev",
+    "date": "03/20/2018"
+  },{
+    "title": "Complete hometask on Angular part2 for 5 stars",
+    "text": "Complate all tasks till 28/03",
+    "date": "03/21/2018"
+  }, {
+    "title": "Attend class on unitests in JS",
+    "text": "Date: March 28 Time: 9:00 – 11:00 Location: K3V, Loft Trainer: Siarhei Soroka Broadcast available via link",
+    "date": "03/27/2018"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "name": "frontcamp",
+  "version": "3.0.1-angular",
+  "author": "Egor Modin",
+  "repository": "https://github.com/modinegor/modinegor.github.io",
+  "scripts": {
+    "build": "webpack --config webpack.angular.js",
+    "start": "webpack-dev-server --config webpack.angular.js"
+  },
+  "dependencies": {
+    "angular": "^1.6.7",
+    "angular-resource": "^1.6.7",
+    "angular-route": "^1.6.7",
+    "bootstrap": "^4.0.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "fs": "0.0.1-security"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "clean-webpack-plugin": "^0.1.19",
+    "path": "^0.12.7",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
+  }
+}

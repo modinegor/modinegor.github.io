@@ -1,0 +1,23 @@
+<div class="container">
+    <form class="form-group" name="form" novalidate>
+
+        <label>What should be done?</label>
+        <input name="toDoTitle" class="form-control" type="text" ng-model="editTitle" required=""/>
+        <div ng-show="form.$submitted || form.toDoTitle.$touched">
+            <div class="text-danger" ng-show="form.toDoTitle.$error.required">
+                Title is required
+            </div>
+        </div>
+
+        <label>Details</label>
+        <textarea class="form-control" rows="3" name="toDoText" ng-model="editText" ng-minlength="20"></textarea>
+        <div ng-show="form.$submitted || form.toDoText.$touched">
+            <div class="text-danger" ng-show="form.toDoText.$error.minlength">
+                Details should have at least 20 symbols
+            </div>
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary" ng-click="saveToDo()">{{buttonName}}</button>
+    </form>
+</div>

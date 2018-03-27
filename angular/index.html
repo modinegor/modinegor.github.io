@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Angular TODO app</title>
+        <script type="text/javascript" src="static/dist/bundle.js"></script>
+        <link type="text/css" rel="stylesheet" href="static/css/main.css" />
+        <link type="text/css" rel="stylesheet" href="static/css/slider.css" />
+        <link type="text/css" rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    </head>
+    <body ng-app="toDoApp">
+        <nav ng-controller="navController" class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">TODO</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item" ng-class="{'active': active.home}" ng-click="changeMenu('home')">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item" ng-class="{'active': active.pretty}" ng-click="changeMenu('pretty')">
+                        <a class="nav-link" href="#!/pretty">Pretty</a>
+                    </li>
+                    <li class="nav-item dropdown" ng-class="{'active': active.admin}">
+                        <div class="nav-link dropdown-toggle" style="cursor: pointer;" ng-click="showDropdown()">
+                            Admin
+                        </div>
+                        <div class="dropdown-menu" ng-class="{'show': show}" ng-click="changeMenu('admin')">
+                            <a class="dropdown-item" href="#!/todo/admin/create">Create todo</a>
+                            <!--<a class="dropdown-item" href="#!/admin/edit">Edit todo</a>-->
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div ng-view></div>
+    </body>
+</html>
