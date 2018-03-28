@@ -6,7 +6,7 @@ const toDoFactory = $resource => {
         requested = false;
 
     const init = () => {
-        $resource('http://localhost:5003/data').query(data => {
+        $resource('/api/data').query(data => {
             for (let item of data) {
                 let {title, text, date} = item;
 

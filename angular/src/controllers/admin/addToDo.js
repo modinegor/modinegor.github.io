@@ -1,14 +1,14 @@
-const addToDo = ($scope, toDoFactory) => {
+const addToDo = ($scope, $location, toDoFactory) => {
     $scope.editTitle = '';
     $scope.editText = '';
     $scope.buttonName = 'Create';
 
     $scope.saveToDo = () => {
-        toDoFactory.addTask($scope.editTitle, $scope.editText);
         if ($scope.editTitle !== '' && $scope.editText.length >= 20) {
+            toDoFactory.addTask($scope.editTitle, $scope.editText);
             $scope.editTitle = '';
             $scope.editText = '';
-            window.location.href = '#!/todo';
+            $location.path('/todo').replace();
         }
     }
 };

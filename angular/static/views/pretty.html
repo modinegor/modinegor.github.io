@@ -5,7 +5,6 @@
     </header>
 
     <section class="main" ng-if="task.length !== 0">
-        <input class="toggle-all" type="checkbox"/>
         <ul class="todo-list">
             <li ng-repeat="task in tasks | state:filter">
                 <div class="view" ng-class="{'completed': task.completed}">

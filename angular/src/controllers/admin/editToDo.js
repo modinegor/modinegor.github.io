@@ -1,4 +1,4 @@
-const editToDo = ($scope, $route, toDoFactory) => {
+const editToDo = ($scope, $route, $location, toDoFactory) => {
     const params = $route.current.params;
 
     let tasks = toDoFactory.getTasks(),
@@ -11,7 +11,7 @@ const editToDo = ($scope, $route, toDoFactory) => {
     $scope.saveToDo = () => {
         if ($scope.editTitle && $scope.editText.length >= 20) {
             toDoFactory.changeTask(task, $scope.editTitle, $scope.editText);
-            window.location.href = '#!/todo';
+            $location.path('/todo').replace();
         }
     };
 };
