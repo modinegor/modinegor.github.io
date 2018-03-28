@@ -28,14 +28,6 @@ module.exports = {
         ]
     },
 
-    devServer: {
-        host: 'localhost',
-        port: 5001,
-        hot: true,
-        disableHostCheck: true,
-        contentBase: __dirname
-    },
-
     watch: true,
 
     watchOptions: {

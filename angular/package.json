@@ -5,7 +5,7 @@
   "repository": "https://github.com/modinegor/modinegor.github.io",
   "scripts": {
     "build": "webpack --config webpack.angular.js",
-    "start": "webpack-dev-server --config webpack.angular.js"
+    "start": "node ./server/index.js"
   },
   "dependencies": {
     "angular": "^1.6.7",
