@@ -9,7 +9,7 @@ const editToDo = ($scope, $route, $location, toDoFactory) => {
     $scope.buttonName = 'Save';
 
     $scope.saveToDo = () => {
-        if ($scope.editTitle && $scope.editText.length >= 20) {
+        if ($scope.editTitle && $scope.editText) {
             toDoFactory.changeTask(task, $scope.editTitle, $scope.editText);
             $location.path('/todo').replace();
         }

@@ -1,0 +1,12 @@
+<div class="carousel slide bg-secondary">
+    <page-indicators page="blog.page" ng-if="blog.page.current !== 0"></page-indicators>
+    <div class="carousel-inner p-4" role="listbox">
+        <article-container article="blog.article" on-edit="blog.editArticle()"></article-container>
+    </div>
+    <a class="carousel-control-prev" role="button" ng-if="blog.page.current !== 0" ng-click="blog.showPrev()" style="cursor: pointer;">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" role="button" ng-if="blog.page.current !== 0" ng-click="blog.showNext()" style="cursor: pointer;">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+</div>

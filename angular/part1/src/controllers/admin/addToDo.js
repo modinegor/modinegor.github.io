@@ -4,7 +4,7 @@ const addToDo = ($scope, $location, toDoFactory) => {
     $scope.buttonName = 'Create';
 
     $scope.saveToDo = () => {
-        if ($scope.editTitle !== '' && $scope.editText.length >= 20) {
+        if ($scope.editTitle && $scope.editText) {
             toDoFactory.addTask($scope.editTitle, $scope.editText);
             $scope.editTitle = '';
             $scope.editText = '';

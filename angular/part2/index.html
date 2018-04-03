@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Angular TODO app</title>
+        <script type="text/javascript" src="dist/part2/bundle.js"></script>
+    </head>
+    <body ng-app="blogApp">
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Angular blog</a>
+            <form class="form-inline">
+                <a href="#!/blog/admin/create">
+                    <button class="btn btn-sm btn-outline-secondary">create</button>
+                </a>
+            </form>
+        </nav>
+
+        <div ng-view></div>
+    </body>
+</html>

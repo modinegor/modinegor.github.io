@@ -1,0 +1,13 @@
+<div class="carousel-item active">
+    <div class="container">
+        <div class="jumbotron" ng-if="art.article.title !== undefined">
+            <h1 ng-click="art.edit()" style="cursor: pointer;">{{art.article.title}}</h1>
+            <p>{{art.article.text}}</p>
+        </div>
+        <div class="jumbotron" ng-if="art.article.title === undefined">
+            <h1 ng-click="art.edit()">Blog is empty</h1>
+            <p>Add first post to the blog</p>
+            <a class="btn btn-secondary float-right" href="#!/blog/admin/create">create first post</a>
+        </div>
+    </div>
+</div>

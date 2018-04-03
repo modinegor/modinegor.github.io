@@ -1,0 +1,23 @@
+<div class="container">
+    <form class="form-group" name="form" novalidate>
+
+        <label>Title</label>
+        <input name="articleTitle" class="form-control" type="text" ng-model="editTitle" required/>
+        <div ng-show="form.$submitted || form.articleTitle.$touched">
+            <div class="text-danger" ng-show="form.articleTitle.$error.required">
+                Title is required
+            </div>
+        </div>
+
+        <label>Text</label>
+        <textarea class="form-control" rows="3" name="articleText" ng-model="editText" text-length></textarea>
+        <div ng-show="form.$submitted || form.articleText.$touched">
+            <div class="text-danger" ng-show="form.articleText.$error.textLength">
+                Details should have at least 20 symbols
+            </div>
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary" ng-click="saveArticle()">{{buttonName}}</button>
+    </form>
+</div>

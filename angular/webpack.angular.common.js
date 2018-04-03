@@ -1,15 +1,4 @@
-const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-
-
 module.exports = {
-    entry: "./src/index.js",
-    output: {
-        path: path.resolve(__dirname, 'static', 'dist'),
-        filename: 'bundle.js',
-        publicPath: './'
-    },
-
     module: {
         rules: [
             {
@@ -32,9 +21,5 @@ module.exports = {
 
     watchOptions: {
         aggregateTimeout: 100
-    },
-
-    plugins: [
-        new CleanWebpackPlugin([path.resolve(__dirname, 'static', 'dist')], {'dry': true}),
-    ],
+    }
 };
