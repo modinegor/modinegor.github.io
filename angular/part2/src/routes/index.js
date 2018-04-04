@@ -6,12 +6,12 @@ const routes = $routeProvider => {
             controllerAs: 'blog'
         })
         .when('/blog/admin/create', {
-            templateUrl: '/views/part2/edit.html',
-            controller: 'createArticle'
+            templateUrl: '/views/part2/admin/add.html',
+            controller: 'articleController'
         })
         .when('/blog/admin/:id/edit', {
-            templateUrl: '/views/part2/edit.html',
-            controller: 'editArticle'
+            templateUrl: '/views/part2/admin/edit.html',
+            controller: 'articleController'
         })
         .otherwise({redirectTo: '/blog'})
 };

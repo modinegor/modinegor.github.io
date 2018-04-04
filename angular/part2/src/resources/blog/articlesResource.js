@@ -1,4 +1,4 @@
-const articlesFactory = $resource => {
+const articlesResource = $resource => {
     let articles = [];
 
     $resource('/api/blog').query(data => {
@@ -31,10 +31,15 @@ const articlesFactory = $resource => {
             return current;
         },
         setCurrent(id) {
+            if (id === articles.length + 1)
+                id = 1;
+            if (id === 0)
+                id = articles.length;
+
             current = id;
             return id;
         }
     };
 };
 
-export default articlesFactory;
+export default articlesResource;

@@ -19,19 +19,13 @@ export default function blogController($location, articlesFactory) {
     }
 
     this.showNext = () => {
-        if (this.page.current !== this.page.length) {
-            this.page.current = articlesFactory.setCurrent(this.page.current + 1);
-
-            this.article = articles[this.page.current - 1];
-        }
+        this.page.current = articlesFactory.setCurrent(this.page.current + 1);
+        this.article = articles[this.page.current - 1];
     };
 
     this.showPrev = () => {
-        if (this.page.current !== 1) {
-            this.page.current = articlesFactory.setCurrent(this.page.current - 1);
-
-            this.article = articles[this.page.current - 1];
-        }
+        this.page.current = articlesFactory.setCurrent(this.page.current - 1);
+        this.article = articles[this.page.current - 1];
     };
 
     this.editArticle = () => {

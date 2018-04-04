@@ -1,5 +1,3 @@
-import createArticle from "./createArticle";
-import editArticle from "./editArticle";
+import articleController from "./articleController";
 
-exports.createArticle = createArticle;
-exports.editArticle = editArticle;
+exports.articleController = articleController;
