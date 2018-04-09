@@ -1,4 +1,4 @@
-export default function blogController($location, articlesFactory) {
+export default function blogController(articlesFactory) {
     let articles = articlesFactory.getArticles(),
         current = articlesFactory.getCurrent();
 
@@ -26,9 +26,5 @@ export default function blogController($location, articlesFactory) {
     this.showPrev = () => {
         this.page.current = articlesFactory.setCurrent(this.page.current - 1);
         this.article = articles[this.page.current - 1];
-    };
-
-    this.editArticle = () => {
-        $location.path(`/blog/admin/${this.page.current}/edit`)
     };
 };

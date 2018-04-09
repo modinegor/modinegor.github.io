@@ -174,3 +174,12 @@ Task is to create the admin panel using latest AngularJS:
 		a. Create pagination component and use it to display a list of articles
 		b. List of numbers for pagination buttons on should be generated using custom Filter
 * Making  #5 without part (b) can be also considered as "excellent"
+
+
+### Unit tests
+
+1. Create task for running unit tests;
+2. Add code coverage report;
+3. Test your one of your apps(node, react, angular);
+4. Snapshot testing;
+5. Use stryker-mutator at least for one project. Test all of your apps (node, react, angular)

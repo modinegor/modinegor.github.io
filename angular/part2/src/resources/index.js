@@ -1,3 +1,4 @@
-const resource = $resourceProvider => {};
+import blogResources from "./blogResources";
 
-export default resource;
+exports.resource = $resourceProvider => {};
+exports.blogResources = blogResources;

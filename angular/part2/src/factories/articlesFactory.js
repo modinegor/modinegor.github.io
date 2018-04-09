@@ -1,15 +1,6 @@
-const articlesResource = $resource => {
-    let articles = [];
-
-    $resource('/api/blog').query(data => {
-        for (let item of data) {
-            let {title, text} = item;
-
-            articles.push({title, text});
-        }
-    });
-
-    let current = 1;
+const articlesFactory = blogResources => {
+    let articles = blogResources.get(),
+        current = 1;
 
     return {
         getArticles: () => {
@@ -17,7 +8,7 @@ const articlesResource = $resource => {
         },
         addArticle: (title, text) => {
             articles.push({title, text});
-            $resource('/api/blog').save({title, text});
+            blogResources.post(title, text);
 
             return articles.length;
         },
@@ -25,7 +16,7 @@ const articlesResource = $resource => {
             articles[id].title = title;
             articles[id].text = text;
 
-            $resource(`/api/blog/${id}`).save({title, text});
+            blogResources.post(title, text, id);
         },
         getCurrent() {
             return current;
@@ -42,4 +33,4 @@ const articlesResource = $resource => {
     };
 };
 
-export default articlesResource;
+export default articlesFactory;
