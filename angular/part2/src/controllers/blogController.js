@@ -1,22 +1,25 @@
 export default function blogController(articlesFactory) {
-    let articles = articlesFactory.getArticles(),
-        current = articlesFactory.getCurrent();
+    let articles = [];
 
-    this.page = {
-        current: 0,
-        length: 0
-    };
-    this.article = {
-        title: undefined,
-        text: undefined
-    };
+    articlesFactory.getArticles().then(data => {
+        articles = data;
 
-    if (articles.length !== 0) {
-        this.page.current = articlesFactory.getCurrent(1);
-        this.page.length = articles.length;
+        this.page = {
+            current: 0,
+            length: 0
+        };
+        this.article = {
+            title: undefined,
+            text: undefined
+        };
 
-        this.article = articles[this.page.current - 1];
-    }
+        if (articles.length !== 0) {
+            this.page.current = articlesFactory.getCurrent(1);
+            this.page.length = articles.length;
+
+            this.article = articles[this.page.current - 1];
+        }
+    });
 
     this.showNext = () => {
         this.page.current = articlesFactory.setCurrent(this.page.current + 1);

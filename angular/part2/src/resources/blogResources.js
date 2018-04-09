@@ -1,16 +1,7 @@
 const blogResources = $resource => {
     return {
         get: () => {
-            let articles = [];
-            $resource('/api/blog').query(data => {
-                for (let item of data) {
-                    let {title, text} = item;
-
-                    articles.push({title, text});
-                }
-            });
-
-            return articles;
+            return $resource('/api/blog').query().$promise;
         },
         post: (title, text, id=null) => {
             let url = '/api/blog';
@@ -19,9 +10,6 @@ const blogResources = $resource => {
                 url += `/${id}`;
 
             $resource(url).save({title, text});
-        },
-        articles: () => {
-            return articles;
         }
     }
 };

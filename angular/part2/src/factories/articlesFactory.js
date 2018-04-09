@@ -1,10 +1,11 @@
 const articlesFactory = blogResources => {
-    let articles = blogResources.get(),
+    let articles = [],
+        requested = false,
         current = 1;
 
     return {
         getArticles: () => {
-            return articles;
+            return requested ? articles : blogResources.get();
         },
         addArticle: (title, text) => {
             articles.push({title, text});
