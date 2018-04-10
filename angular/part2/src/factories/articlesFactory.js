@@ -5,7 +5,10 @@ const articlesFactory = blogResources => {
 
     return {
         getArticles: () => {
-            return requested ? articles : blogResources.get();
+            let ret_value = requested ? articles : blogResources.get();
+            requested = true;
+
+            return ret_value;
         },
         addArticle: (title, text) => {
             articles.push({title, text});

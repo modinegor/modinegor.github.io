@@ -1,15 +1,31 @@
 describe('blogController', () => {
-    let $controller, blogController, articlesFactory;
+    let $controller,
+        blogController,
+        articlesFactory,
+        deferred,
+        $rootScope;
 
     beforeEach(module('blogApp'));
 
-    beforeEach(inject((_$controller_, _articlesFactory_) => {
+    beforeEach(inject((_$controller_, _articlesFactory_, _$q_, _$rootScope_) => {
         $controller = _$controller_;
         articlesFactory = _articlesFactory_;
+
+        deferred = _$q_.defer();
+
+        $rootScope = _$rootScope_.$new();
+
+        spyOn(articlesFactory, 'getArticles').and.returnValue(deferred.promise);
+        spyOn(articlesFactory, 'getCurrent').and.callFake((id=1) => id);
+        spyOn(articlesFactory, 'setCurrent').and.callFake(id => id);
+        spyOn(articlesFactory, 'addArticle').and.callFake(() => null);
     }));
 
     it('should be defined', () => {
+        deferred.resolve([]);
+
         blogController = $controller('blogController', {articlesFactory: articlesFactory});
+        $rootScope.$digest();
 
         expect(blogController).toBeDefined();
         expect(blogController.page).toBeDefined();
@@ -20,10 +36,10 @@ describe('blogController', () => {
 
     describe('articles is not defined', () => {
         beforeEach(() => {
-            spyOn(articlesFactory, 'getArticles').and.returnValue([]);
-            spyOn(articlesFactory, 'getCurrent').and.returnValue(1);
+            deferred.resolve([]);
 
-            blogController = $controller('blogController', {articlesFactory: articlesFactory})
+            blogController = $controller('blogController', {articlesFactory: articlesFactory});
+            $rootScope.$digest();
         });
 
         it('default page is not defined', () => {
@@ -48,10 +64,10 @@ describe('blogController', () => {
         ];
 
         beforeEach(() => {
-            spyOn(articlesFactory, 'getArticles').and.returnValue(articlesList);
-            spyOn(articlesFactory, 'getCurrent').and.callFake((current=1) => current);
+            deferred.resolve(articlesList);
 
             blogController = $controller('blogController', {articlesFactory: articlesFactory});
+            $rootScope.$digest();
         });
 
         it('default page is the first page', () => {
@@ -80,5 +96,5 @@ describe('blogController', () => {
                 expect(blogController.article).toEqual(articlesList[0]);
             });
         });
-    })
+    });
 });

@@ -1,12 +1,8 @@
 describe('articlesFactory', () => {
     let articlesFactory,
-        articlesList = [
-            {title: 'first articles', text: 'some text of first article'},
-            {title: 'second articles', text: 'some text of second article'},
-            {title: 'third articles', text: 'some text of third article'},
-        ],
+        articlesMockObject = {},
         blogResourcesMock = {
-            get: jasmine.createSpy('get').and.returnValue(articlesList),
+            get: jasmine.createSpy('get').and.returnValue(articlesMockObject),
             post: jasmine.createSpy('post')
         };
 
@@ -28,18 +24,19 @@ describe('articlesFactory', () => {
         expect(articlesFactory.setCurrent).toBeDefined();
     });
 
-    it('should request articles from blogResources', () => {
-        expect(blogResourcesMock.get).toHaveBeenCalled();
-    });
-
     describe('methods', () => {
         it('getArticles', () => {
-            expect(articlesFactory.getArticles()).toBe(articlesList);
+            expect(articlesFactory.getArticles()).toBe(articlesMockObject);
+            expect(blogResourcesMock.get).toHaveBeenCalled();
+            expect(articlesFactory.getArticles()).not.toBe(articlesMockObject);
+            expect(blogResourcesMock.get).toHaveBeenCalledTimes(1);
         });
 
         it('addArticle', () => {
-            let title = 'new article title',
-                text = 'new article text';
+            articlesFactory.getArticles();
+
+            let title = 'first article title',
+                text = 'first article text';
 
             articlesFactory.addArticle(title, text);
 
@@ -50,19 +47,23 @@ describe('articlesFactory', () => {
         });
 
         it('changeArticle', () => {
-            let title = 'changed article title',
-                text = 'changed article text',
-                article1 = {...articlesList[0]},
-                article3 = {...articlesList[2]};
+            articlesFactory.getArticles();
 
-            articlesFactory.changeArticle(1, title, text);
+            let title = 'first article title',
+                text = 'first article text';
+
+            articlesFactory.addArticle(title, text);
+
+            title += ' changed';
+            text += ' changed';
+
+            articlesFactory.changeArticle(0, title, text);
+
+            expect(blogResourcesMock.post).toHaveBeenCalledWith(title, text, 0);
 
             let articles = articlesFactory.getArticles();
 
-            expect(blogResourcesMock.post).toHaveBeenCalledWith(title, text, 1);
-            expect({title, text}).toEqual(articles[1]);
-            expect(article1).toEqual(articles[0]);
-            expect(article3).toEqual(articles[2]);
+            expect({title, text}).toEqual(articles[0]);
         });
 
         it('getCurrent', () => {
@@ -70,6 +71,12 @@ describe('articlesFactory', () => {
         });
 
         describe('setCurrent', () => {
+            beforeEach(() => {
+                articlesFactory.addArticle('first article title', 'first article text');
+                articlesFactory.addArticle('second article title', 'second article text');
+                articlesFactory.addArticle('third article title', 'third article text');
+            });
+
             it('new current is within the list', () => {
                 let new_current = 2;
 
@@ -78,12 +85,12 @@ describe('articlesFactory', () => {
             });
 
             it('move through left edge', () => {
-                expect(articlesFactory.setCurrent(0)).toEqual(articlesList.length);
-                expect(articlesFactory.getCurrent()).toEqual(articlesList.length);
+                expect(articlesFactory.setCurrent(0)).toEqual(3);
+                expect(articlesFactory.getCurrent()).toEqual(3);
             });
 
             it('move through right edge', () => {
-                expect(articlesFactory.setCurrent(articlesList.length + 1)).toEqual(1);
+                expect(articlesFactory.setCurrent(4)).toEqual(1);
                 expect(articlesFactory.getCurrent()).toEqual(1);
             });
         });

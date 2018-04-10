@@ -4,6 +4,11 @@ export default function blogController(articlesFactory) {
     articlesFactory.getArticles().then(data => {
         articles = data;
 
+        for (let article of articles) {
+            let {title, text} = article;
+            articlesFactory.addArticle(title, text);
+        }
+
         this.page = {
             current: 0,
             length: 0
@@ -20,6 +25,7 @@ export default function blogController(articlesFactory) {
             this.article = articles[this.page.current - 1];
         }
     });
+
 
     this.showNext = () => {
         this.page.current = articlesFactory.setCurrent(this.page.current + 1);
