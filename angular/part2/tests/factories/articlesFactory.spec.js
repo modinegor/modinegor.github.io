@@ -29,7 +29,6 @@ describe('articlesFactory', () => {
             expect(articlesFactory.getArticles()).toBe(articlesMockObject);
             expect(blogResourcesMock.get).toHaveBeenCalled();
             expect(articlesFactory.getArticles()).not.toBe(articlesMockObject);
-            expect(blogResourcesMock.get).toHaveBeenCalledTimes(1);
         });
 
         it('addArticle', () => {
